@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notemer.membership.LoginController">
+   <left>
+      <AnchorPane prefHeight="479.0" prefWidth="375.0" style="-fx-background-color: #365563;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="102.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NoteMer - Note Member" wrappingWidth="171.31146240234375">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="117.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="- Membership Management -">
+               <font>
+                  <Font name="Arial Italic" size="11.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="57.0" fitWidth="70.0" layoutX="159.0" layoutY="183.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/book.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </left>
+   <top>
+      <AnchorPane prefHeight="16.0" prefWidth="635.0" style="-fx-background-color: #253f4b;" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <AnchorPane prefHeight="20.0" prefWidth="635.0" style="-fx-background-color: #253f4b;" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+      <AnchorPane onKeyPressed="#onKeyPressEvent" prefHeight="479.0" prefWidth="375.0" style="-fx-background-color: #f3f5f6;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#253f4b" layoutX="73.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login untuk melanjutkan">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Text>
+            <Hyperlink layoutX="200.0" layoutY="272.0" text="Lupa password">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Hyperlink>
+            <Button layoutX="150.0" layoutY="347.0" mnemonicParsing="false" onAction="#btnLoginClick" prefHeight="30.0" prefWidth="83.0" style="-fx-background-color: #3b484f;" text="Login" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Text fill="#4e4e4e" layoutX="102.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Belum punya akun?">
+               <font>
+                  <Font name="Arial" size="10.0" />
+               </font>
+            </Text>
+            <Hyperlink layoutX="191.0" layoutY="129.0" text="Registrasi di sini">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Hyperlink>
+            <TextField fx:id="txtUsername" layoutX="128.0" layoutY="193.0" prefHeight="26.0" prefWidth="147.0" promptText="Username" />
+            <ImageView fitHeight="14.0" fitWidth="16.0" layoutX="110.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/key.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="16.0" fitWidth="17.0" layoutX="109.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/user.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="17.0" fitWidth="19.0" layoutX="281.0" layoutY="244.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/eye.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="txtPassword" layoutX="127.0" layoutY="240.0" promptText="Password" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
