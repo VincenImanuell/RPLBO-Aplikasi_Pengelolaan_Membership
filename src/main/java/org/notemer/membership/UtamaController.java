@@ -1,6 +1,8 @@
 package org.notemer.membership;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,7 +25,7 @@ public class UtamaController implements Initializable {
 
     public Label homeUserName;
     public Label ambilId;
-    public TableView tabelMember;
+    public TableView<Member> tabelMember;
     public TableColumn<Member, String> kolomNama;
     public TableColumn<Member, String> kolomJenis;
     public TableColumn<Member, Date> kolomMulai;
@@ -32,7 +34,11 @@ public class UtamaController implements Initializable {
     public TableColumn<Member, String> kolomStatus;
     private Connection conn;
 
-    private int isiId;
+    @FXML
+    private TextField searchBox;
+
+    private ObservableList<Member> memberList;
+    private FilteredList<Member> filteredData;
 
     protected void koneksiDB() throws SQLException, ClassNotFoundException {
         Class.forName("org.sqlite.JDBC");
@@ -53,7 +59,13 @@ public class UtamaController implements Initializable {
 
         try {
             koneksiDB();
-            tabelMember.setItems(getDataFromTable());
+            memberList = getDataFromTable();
+            filteredData = new FilteredList<>(memberList, p -> true);
+            // Wrap the filtered data with a sorted list.
+            SortedList<Member> sortedData = new SortedList<>(filteredData);
+            // Bind the sorted list to the table view.
+            tabelMember.setItems(sortedData);
+            searchBox.setOnKeyPressed(this::handleSearch);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -134,4 +146,18 @@ public class UtamaController implements Initializable {
         }
     }
 
+    private void handleSearch(KeyEvent event) {
+        String searchText = searchBox.getText().toLowerCase();
+        filteredData.setPredicate(membership -> {
+            if (searchText.isEmpty()) {
+                return true;
+            } else {
+                return (
+                        membership.getNama_membership().toLowerCase().contains(searchText) ||
+                                membership.getJenis_keanggotaan().toLowerCase().contains(searchText) ||
+                                membership.getStatus().toLowerCase().contains(searchText)
+                );
+            }
+        });
+    }
 }
