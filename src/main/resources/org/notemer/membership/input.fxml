@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notemer.membership.InputController">
+   <top>
+      <AnchorPane prefHeight="53.0" prefWidth="750.0" style="-fx-background-color: #365563;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="63.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NoteMer" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="62.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note - Membership" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="18.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/book-header.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </top>
+   <right>
+      <AnchorPane prefHeight="479.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#365563" height="383.0" layoutX="33.0" layoutY="66.0" stroke="BLACK" strokeType="INSIDE" width="670.0" />
+            <Line endX="649.0" layoutX="101.0" layoutY="47.0" startX="-100.0" />
+            <Text fill="#365563" layoutX="259.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Form Input Membership" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Text>
+            <TextField fx:id="status" focusTraversable="false" layoutX="426.0" layoutY="232.0" prefHeight="25.0" prefWidth="218.0" promptText="Harus Diisi" />
+            <TextField fx:id="namaMembership" focusTraversable="false" layoutX="116.0" layoutY="117.0" prefHeight="25.0" prefWidth="218.0" promptText="Harus Diisi" />
+            <TextField fx:id="harga" focusTraversable="false" layoutX="426.0" layoutY="288.0" prefHeight="25.0" prefWidth="218.0" promptText="Harus Diisi" />
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="86.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/calender.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="kontak" focusTraversable="false" layoutX="426.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" promptText="Harus Diisi" />
+            <TextField fx:id="jenisMembership" focusTraversable="false" layoutX="116.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" promptText="Harus Diisi" />
+            <TextField fx:id="siklus" focusTraversable="false" layoutX="426.0" layoutY="117.0" prefHeight="25.0" prefWidth="218.0" promptText="Harus Diisi" />
+            <Text fill="WHITE" layoutX="87.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Organisasi">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="88.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Jenis Keanggotaan">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="88.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal Mulai">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="88.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tanggal Berakhir">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="397.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Siklus Pembaruan">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="397.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kontak">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="397.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="397.0" layoutY="277.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Harga">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Text>
+            <Button layoutX="226.0" layoutY="406.0" mnemonicParsing="false" onAction="#onBatalClick" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #008DDA; -fx-background-radius: 15;" text="Batal" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button layoutX="394.0" layoutY="406.0" mnemonicParsing="false" onAction="#onTambahClick" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #008DDA; -fx-background-radius: 15;" text="Tambah" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="86.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/calender.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="87.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/jenis.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="87.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/name.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="397.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/phone.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="396.0" layoutY="291.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/money.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="396.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/active.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="396.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/recycle.png" />
+               </image>
+            </ImageView>
+            <DatePicker fx:id="tglMulai" layoutX="116.0" layoutY="232.0" prefHeight="26.0" prefWidth="220.0" />
+            <DatePicker fx:id="tglSelesai" layoutX="116.0" layoutY="287.0" prefHeight="26.0" prefWidth="220.0" />
+            <TextArea fx:id="manfaat" layoutX="84.0" layoutY="326.0" prefHeight="70.0" prefWidth="254.0" promptText="Manfaat Membership" />
+            <TextArea fx:id="deskripsi" layoutX="399.0" layoutY="326.0" prefHeight="39.0" prefWidth="246.0" promptText="Deskripsi Membership" />
+            <Button layoutX="399.0" layoutY="369.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="246.0" text="Upload Foto" />
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

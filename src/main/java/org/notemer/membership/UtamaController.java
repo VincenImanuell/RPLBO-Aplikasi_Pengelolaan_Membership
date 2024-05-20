@@ -15,6 +15,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -36,6 +37,8 @@ public class UtamaController implements Initializable {
 
     @FXML
     private TextField searchBox;
+
+
 
     private ObservableList<Member> memberList;
     private FilteredList<Member> filteredData;
@@ -92,7 +95,7 @@ public class UtamaController implements Initializable {
     private ArrayList dataBaseArrayList(ResultSet rs) throws SQLException {
         ArrayList<Member> data = new ArrayList<>();
         while (rs.next()) {
-            Member p = new Member(rs.getInt("id_membership"),rs.getString("nama_membership"), rs.getString("jenis_keanggotaan"), rs.getDate("tanggal_mulai"), rs.getDate("tanggal_selesai"), rs.getString("siklus_pembaruan"), rs.getInt("kontak"), rs.getString("status"), rs.getInt("harga"), rs.getString("manfaat"), rs.getString("deskripsi"));
+            Member p = new Member(rs.getInt("id_membership"),rs.getString("nama_membership"), rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class), rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"), rs.getString("kontak"), rs.getString("status"), rs.getString("harga"), rs.getString("manfaat"), rs.getString("deskripsi"));
             data.add(p);
         }
         return data;
@@ -160,4 +163,20 @@ public class UtamaController implements Initializable {
             }
         });
     }
+    public void onProfilClick() {
+        try {
+            GuiApp.setRoot("profil-detail", "Profil-NoteMer", false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void onAddClick() {
+        try {
+            GuiApp.setRoot("input", "Add-Membership-NoteMer", false);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

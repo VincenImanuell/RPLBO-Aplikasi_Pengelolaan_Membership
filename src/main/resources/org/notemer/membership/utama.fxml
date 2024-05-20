@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notemer.membership.UtamaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="777.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notemer.membership.UtamaController">
    <top>
       <AnchorPane prefHeight="53.0" prefWidth="750.0" style="-fx-background-color: #365563;" BorderPane.alignment="CENTER">
          <children>
@@ -27,9 +27,9 @@
                   <Image url="@icon/book-header.png" />
                </image>
             </ImageView>
-            <MenuButton layoutX="670.0" layoutY="3.0" mnemonicParsing="false" style="-fx-background-color: #365563;">
+            <MenuButton layoutX="692.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #365563;">
               <items>
-                <MenuItem mnemonicParsing="false" text="Profil">
+                <MenuItem mnemonicParsing="false" onAction="#onProfilClick" text="Profil">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -56,24 +56,24 @@
                   </ImageView>
                </graphic>
             </MenuButton>
-            <Label fx:id="homeUserName" layoutX="622.0" layoutY="17.0" prefHeight="18.0" prefWidth="60.0" text="Label" textAlignment="RIGHT" textFill="WHITE">
+            <Label fx:id="homeUserName" layoutX="625.0" layoutY="17.0" prefHeight="18.0" prefWidth="60.0" text="Label" textAlignment="RIGHT" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
          </children>
       </AnchorPane>
    </top>
-   <right>
-      <AnchorPane prefHeight="479.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+   <center>
+      <AnchorPane prefHeight="462.0" prefWidth="778.0" BorderPane.alignment="CENTER">
          <children>
-            <Line endX="649.0" layoutX="101.0" layoutY="47.0" startX="-100.0" />
-            <TextField fx:id="searchBox" layoutX="8.0" layoutY="61.0" prefHeight="26.0" prefWidth="182.0" promptText="Search......" />
-            <Text fill="#365563" layoutX="14.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daftar Membership" textAlignment="CENTER">
+            <Line endX="665.7999877929688" layoutX="101.0" layoutY="47.0" startX="-86.19999694824219" />
+            <TextField fx:id="searchBox" layoutX="25.0" layoutY="61.0" prefHeight="26.0" prefWidth="182.0" promptText="Search......" />
+            <Text fill="#365563" layoutX="29.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daftar Membership" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Button layoutX="188.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #365563;">
+            <Button layoutX="206.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #365563;">
                <graphic>
                   <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,7 +82,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="613.0" layoutY="62.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="120.0" style="-fx-background-color: #0cd742;" text="Tambah Data " textFill="WHITE">
+            <Button layoutX="628.0" layoutY="60.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="27.0" prefWidth="120.0" style="-fx-background-color: #0cd742;" text="Tambah Data " textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -99,7 +99,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </StackedAreaChart>
-            <MenuButton layoutX="230.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: #365563;">
+            <MenuButton layoutX="246.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: #365563;">
                <items>
                   <MenuItem mnemonicParsing="false" text="Nama A-Z" />
                   <MenuItem mnemonicParsing="false" text="Berakhir Terjauh" />
@@ -111,14 +111,14 @@
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort" />
                </graphic>
             </MenuButton>
-            <TableView fx:id="tabelMember" layoutX="9.0" layoutY="107.0" prefHeight="144.0" prefWidth="725.0">
+            <TableView fx:id="tabelMember" layoutX="14.0" layoutY="107.0" prefHeight="144.0" prefWidth="749.0">
               <columns>
                 <TableColumn fx:id="kolomNama" prefWidth="133.39999961853027" style="-fx-alignment: center;" text="Nama Organisasi" />
                   <TableColumn fx:id="kolomJenis" prefWidth="111.4000244140625" style="-fx-alignment: center;" text="Jenis" />
-                  <TableColumn fx:id="kolomMulai" prefWidth="93.20001220703125" style="-fx-alignment: center;" text="Mulai" />
-                  <TableColumn fx:id="kolomBerakhir" prefWidth="101.20001220703125" style="-fx-alignment: center;" text="Berakhir" />
-                  <TableColumn fx:id="kolomHarga" prefWidth="145.19998168945312" style="-fx-alignment: center;" text="Harga" />
-                  <TableColumn fx:id="kolomStatus" prefWidth="143.79998779296875" style="-fx-alignment: center;" text="Status" />
+                  <TableColumn fx:id="kolomMulai" prefWidth="114.60000610351562" style="-fx-alignment: center;" text="Mulai" />
+                  <TableColumn fx:id="kolomBerakhir" prefWidth="120.0" style="-fx-alignment: center;" text="Berakhir" />
+                  <TableColumn fx:id="kolomHarga" prefWidth="124.60003662109375" style="-fx-alignment: center;" text="Harga" />
+                  <TableColumn fx:id="kolomStatus" prefWidth="143.19997558593752" style="-fx-alignment: center;" text="Status" />
               </columns>
             </TableView>
             <Button layoutX="638.0" layoutY="424.0" mnemonicParsing="false" onAction="#onDetailClick" prefHeight="28.0" prefWidth="99.0" style="-fx-background-color: #365563; -fx-background-radius: 35;" text="Click Here" textFill="WHITE">
@@ -146,5 +146,5 @@
             </Text>
          </children>
       </AnchorPane>
-   </right>
+   </center>
 </BorderPane>

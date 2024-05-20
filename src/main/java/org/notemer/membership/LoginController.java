@@ -57,7 +57,6 @@ public class LoginController {
                 alert.showAndWait();
                 txtUsername.requestFocus();
             } else {
-                int id_user = rowsAffected.getInt("id_user");
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("Informasi");
                 alert.setContentText("Login Berhasil!!");

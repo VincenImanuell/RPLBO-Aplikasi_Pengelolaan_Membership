@@ -1,23 +1,35 @@
 package org.notemer.membership;
 
-import java.security.PrivateKey;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Member {
         private  int id_membership;
         private String nama_membership;
         private String jenis_keanggotaan;
-        private Date tanggal_mulai;
-        private Date tanggal_berakhir;
+        private LocalDate tanggal_mulai;
+        private LocalDate tanggal_berakhir;
         private String siklus_pembaruan;
-        private Integer kontak;
+        private String kontak;
         private String status;
-        private int harga;
+        private String harga;
         private String manfaat;
         private String deskripsi;
 
-    public Member(int id_membership, String nama_membership, String jenis_keanggotaan, Date tanggal_mulai, Date tanggal_berakhir, String siklus_pembaruan, Integer kontak, String status, int harga, String manfaat, String deskripsi) {
+    public Member(int id_membership, String nama_membership, String jenis_keanggotaan, LocalDate tanggal_mulai, LocalDate tanggal_berakhir, String siklus_pembaruan, String kontak, String status, String harga, String manfaat, String deskripsi) {
         this.id_membership = id_membership;
+        this.nama_membership = nama_membership;
+        this.jenis_keanggotaan = jenis_keanggotaan;
+        this.tanggal_mulai = tanggal_mulai;
+        this.tanggal_berakhir = tanggal_berakhir;
+        this.siklus_pembaruan = siklus_pembaruan;
+        this.kontak = kontak;
+        this.status = status;
+        this.harga = harga;
+        this.manfaat = manfaat;
+        this.deskripsi = deskripsi;
+    }
+
+    public Member(String nama_membership, String jenis_keanggotaan, LocalDate tanggal_mulai, LocalDate tanggal_berakhir, String siklus_pembaruan, String kontak, String status, String harga, String manfaat, String deskripsi) {
         this.nama_membership = nama_membership;
         this.jenis_keanggotaan = jenis_keanggotaan;
         this.tanggal_mulai = tanggal_mulai;
@@ -54,19 +66,19 @@ public class Member {
         this.jenis_keanggotaan = jenis_keanggotaan;
     }
 
-    public Date getTanggal_mulai() {
+    public LocalDate getTanggal_mulai() {
         return tanggal_mulai;
     }
 
-    public void setTanggal_mulai(Date tanggal_mulai) {
+    public void setTanggal_mulai(LocalDate tanggal_mulai) {
         this.tanggal_mulai = tanggal_mulai;
     }
 
-    public Date getTanggal_berakhir() {
+    public LocalDate getTanggal_berakhir() {
         return tanggal_berakhir;
     }
 
-    public void setTanggal_berakhir(Date tanggal_berakhir) {
+    public void setTanggal_berakhir(LocalDate tanggal_berakhir) {
         this.tanggal_berakhir = tanggal_berakhir;
     }
 
@@ -78,11 +90,11 @@ public class Member {
         this.siklus_pembaruan = siklus_pembaruan;
     }
 
-    public Integer getKontak() {
+    public String getKontak() {
         return kontak;
     }
 
-    public void setKontak(Integer kontak) {
+    public void setKontak(String kontak) {
         this.kontak = kontak;
     }
 
@@ -94,11 +106,11 @@ public class Member {
         this.status = status;
     }
 
-    public int getHarga() {
+    public String getHarga() {
         return harga;
     }
 
-    public void setHarga(int harga) {
+    public void setHarga(String harga) {
         this.harga = harga;
     }
 
