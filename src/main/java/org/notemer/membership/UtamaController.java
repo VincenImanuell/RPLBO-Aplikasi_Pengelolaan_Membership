@@ -4,7 +4,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.fxml.FXML;
@@ -12,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -176,6 +180,19 @@ public class UtamaController implements Initializable {
             GuiApp.setRoot("input", "Add-Membership-NoteMer", false);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void onRiwayatClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("riwayat.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Riwayat Aktivitas");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

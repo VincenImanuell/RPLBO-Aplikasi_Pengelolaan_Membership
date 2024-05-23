@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static java.lang.Integer.parseInt;
 
@@ -104,8 +105,27 @@ public class InputController {
                     GuiApp.setRoot("utama", "HomePage-NoteMer", false);
                 }
 
+                Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menambahkan member: " + member.getNama_membership());
+                simpanRiwayatAktivitas(riwayat);
+
                 // Close the database connection
                 conn.close();
+        }
+    }
+
+    public void simpanRiwayatAktivitas(Riwayat riwayat) {
+        String insertSQL = "INSERT INTO riwayat (waktu, keterangan, username) VALUES (?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:membership.sqlite");
+             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+
+            pstmt.setString(1, riwayat.getWaktu().toString());
+            pstmt.setString(2, riwayat.getKeterangan());
+            pstmt.setString(3, riwayat.getUsername());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

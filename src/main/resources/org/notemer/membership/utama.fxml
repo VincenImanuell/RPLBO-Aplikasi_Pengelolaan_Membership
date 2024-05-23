@@ -144,6 +144,15 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Text>
+            <Button layoutX="497.0" layoutY="60.0" mnemonicParsing="false" onAction="#onRiwayatClick" prefHeight="27.0" prefWidth="120.0" style="-fx-background-color: #808000;" text="Riwayat" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="19.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/history.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </center>
