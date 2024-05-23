@@ -4,6 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
@@ -79,5 +82,46 @@ public class ProfilController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void onHapusAkunclick() {
+        Alert konfirmasiAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        konfirmasiAlert.setTitle("Konfirmasi Hapus Akun");
+        konfirmasiAlert.setHeaderText(null);
+        konfirmasiAlert.setContentText("Apakah Anda yakin ingin menghapus akun Anda?");
+
+        ButtonType Ya = new ButtonType("Ya", ButtonBar.ButtonData.OK_DONE);
+        ButtonType Batal = new ButtonType("Batal", ButtonBar.ButtonData.CANCEL_CLOSE);
+        konfirmasiAlert.getButtonTypes().setAll(Ya, Batal);
+
+        konfirmasiAlert.showAndWait().ifPresent(buttonType -> {
+            if (buttonType == Ya) {
+                try {
+                    hapusAkun(LoginController.tampunganUsername);
+                    Alert berhasilAlert = new Alert(Alert.AlertType.INFORMATION);
+                    berhasilAlert.setTitle("Sukses");
+                    berhasilAlert.setHeaderText(null);
+                    berhasilAlert.setContentText("Akun berhasil dihapus.");
+                    berhasilAlert.showAndWait();
+                    GuiApp.setRoot("login", "Login NoteMer: Note Member", false);
+                } catch (SQLException e) {
+                    Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                    errorAlert.setTitle("Error");
+                    errorAlert.setHeaderText(null);
+                    errorAlert.setContentText("Gagal menghapus akun. Silakan coba lagi.");
+                    errorAlert.showAndWait();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+            }
+        });
+    }
+
+    private void hapusAkun(String username) throws SQLException {
+        String deleteSQL = "DELETE FROM user WHERE username = ?";
+        PreparedStatement pstmt = conn.prepareStatement(deleteSQL);
+        pstmt.setString(1, username);
+        pstmt.executeUpdate();
     }
 }
