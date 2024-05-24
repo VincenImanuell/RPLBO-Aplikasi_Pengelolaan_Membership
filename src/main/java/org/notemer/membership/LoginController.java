@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,6 +27,42 @@ public class LoginController {
 
 
     public static String tampunganUsername;
+
+    public ImageView lblOpenEye;
+    public ImageView lblCloseEye;
+    String password;
+
+    public TextField txtPassword2;
+
+
+    public void initialize(){
+        txtPassword2.setVisible(false);
+        lblOpenEye.setVisible(false);
+    }
+
+    public void hidePassword(KeyEvent event) {
+        password=txtPassword.getText();
+        txtPassword2.setText(password);
+    }
+
+    public void showPassword(KeyEvent event) {
+        password=txtPassword2.getText();
+        txtPassword.setText(password);
+    }
+
+    @FXML
+    public void Close_Eye_ClickOnAct(MouseEvent mouseEvent) {
+        txtPassword2.setVisible(true);
+        lblOpenEye.setVisible(true);
+        lblCloseEye.setVisible(false);
+        txtPassword.setVisible(false);
+    }
+    public void Open_Eye_ClickOnAction(MouseEvent mouseEvent) {
+        txtPassword2.setVisible(false);
+        lblOpenEye.setVisible(false);
+        lblCloseEye.setVisible(true);
+        txtPassword.setVisible(true);
+    }
 
     @FXML
     protected void onKeyPressEvent(KeyEvent event) throws IOException, SQLException {
