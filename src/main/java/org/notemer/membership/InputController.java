@@ -105,7 +105,7 @@ public class InputController {
                     GuiApp.setRoot("utama", "HomePage-NoteMer", false);
                 }
 
-                Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menambahkan member: " + member.getNama_membership());
+                Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menambahkan Membership: " + member.getNama_membership());
                 simpanRiwayatAktivitas(riwayat);
 
                 // Close the database connection

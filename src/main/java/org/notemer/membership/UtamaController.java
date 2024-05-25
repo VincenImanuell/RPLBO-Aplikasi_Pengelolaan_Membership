@@ -24,6 +24,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -121,6 +122,10 @@ public class UtamaController implements Initializable {
                             deskripsi = m.getDeskripsi();
                             try {
                                 GuiApp.setRoot("edit","Halaman edit",false);
+
+                                Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Mengedit Membership: " + nama);
+                                simpanRiwayatAktivitas(riwayat);
+
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -140,6 +145,10 @@ public class UtamaController implements Initializable {
                                     preparedStatement.setInt(1,m.getId_membership());
                                     preparedStatement.executeUpdate();
                                     tabelMember.setItems(getDataFromTable());
+
+                                    Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menghapus Membership: " + m.getNama_membership());
+                                    simpanRiwayatAktivitas(riwayat);
+
                                 } catch (SQLException e) {
                                     throw new RuntimeException(e);
                                 } catch (ClassNotFoundException e) {
@@ -306,6 +315,22 @@ public class UtamaController implements Initializable {
             stage.setTitle("Riwayat Aktivitas");
             stage.show();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void simpanRiwayatAktivitas(Riwayat riwayat) {
+        String insertSQL = "INSERT INTO riwayat (waktu, keterangan, username) VALUES (?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:membership.sqlite");
+             PreparedStatement pstmt = conn.prepareStatement(insertSQL)) {
+
+            pstmt.setString(1, riwayat.getWaktu().toString());
+            pstmt.setString(2, riwayat.getKeterangan());
+            pstmt.setString(3, riwayat.getUsername());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
