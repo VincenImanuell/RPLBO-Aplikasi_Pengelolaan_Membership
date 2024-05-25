@@ -6,6 +6,8 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,8 +16,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,10 +41,24 @@ public class UtamaController implements Initializable {
     public TableColumn<Member, Date> kolomBerakhir;
     public TableColumn<Member, Integer> kolomHarga;
     public TableColumn<Member, String> kolomStatus;
+    public TableColumn aksi;
     private Connection conn;
 
     @FXML
     private TextField searchBox;
+
+    public static int id_membership;
+    public static String nama;
+    public static String jenis;
+    public static LocalDate tanggal_mulai;
+    public static LocalDate tanggal_berakhir;
+    public static String pembaharuan;
+    public static String kontak;
+    public static String status;
+    public static int harga;
+    public  static String manfaat;
+
+    public static String deskripsi;
 
 
 
@@ -63,6 +81,102 @@ public class UtamaController implements Initializable {
         kolomBerakhir.setCellValueFactory(new PropertyValueFactory<Member, Date>("tanggal_berakhir"));
         kolomHarga.setCellValueFactory(new PropertyValueFactory<Member, Integer>("harga"));
         kolomStatus.setCellValueFactory(new PropertyValueFactory<Member, String>("status"));
+
+        Callback<TableColumn<Member, String>,TableCell<Member, String>> cellFactory = (param) -> {
+            final  TableCell<Member, String> cell = new TableCell<Member, String>(){
+
+                @Override
+                public void updateItem(String item, boolean empty){
+                    super.updateItem(item, empty);
+
+                    if (empty){
+                        setGraphic(null);
+                        setText(null);
+                    }else{
+                        final Button editbutton = new Button("Edit");
+                        final Button delbutton = new Button("Delete");
+                        final Button detail = new Button("Detail");
+
+                        editbutton.setStyle("-fx-background-color:#8686e1");
+                        delbutton.setStyle("-fx-background-color:#e58585");
+                        detail.setStyle("-fx-background-color: aqua");
+                        HBox buton = new HBox(detail,editbutton, delbutton);
+                        buton.setPadding(new Insets(5,0,5,0));
+                        buton.setAlignment(Pos.CENTER);
+//
+                        buton.setSpacing(10);
+
+                        editbutton.setOnAction(actionEvent -> {
+                            Member m = getTableView().getItems().get(getIndex());
+                            id_membership = m.getId_membership();
+                            nama = m.getNama_membership();
+                            jenis = m.getJenis_keanggotaan();
+                            tanggal_mulai = m.getTanggal_mulai();
+                            tanggal_berakhir = m.getTanggal_berakhir();
+                            pembaharuan = m.getSiklus_pembaruan();
+                            kontak = m.getKontak();
+                            status = m.getStatus();
+                            harga = Integer.parseInt(m.getHarga());
+                            manfaat = m.getManfaat();
+                            deskripsi = m.getDeskripsi();
+                            try {
+                                GuiApp.setRoot("edit","Halaman edit",false);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        delbutton.setOnAction(actionEvent -> {
+                            Member m = getTableView().getItems().get(getIndex());
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Konfirmasi Hapus Data");
+                            alert.setHeaderText("Apakah Yakin Anda Ingin Menghapus Data ?");
+                            alert.setContentText("Data Anda Akan Dihapus Permanen");
+                            Optional<ButtonType> del = alert.showAndWait();
+                            if (del.get() == ButtonType.OK){
+                                try {
+                                    koneksiDB();
+                                    String query = "DELETE FROM membership WHERE id_membership = ?";
+                                    PreparedStatement preparedStatement = conn.prepareStatement(query);
+                                    preparedStatement.setInt(1,m.getId_membership());
+                                    preparedStatement.executeUpdate();
+                                    tabelMember.setItems(getDataFromTable());
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                } catch (ClassNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }
+                        });
+
+                        detail.setOnAction(actionEvent -> {
+                            Member m = getTableView().getItems().get(getIndex());
+                            id_membership = m.getId_membership();
+                            nama = m.getNama_membership();
+                            jenis = m.getJenis_keanggotaan();
+                            tanggal_mulai = m.getTanggal_mulai();
+                            tanggal_berakhir = m.getTanggal_berakhir();
+                            pembaharuan = m.getSiklus_pembaruan();
+                            kontak = m.getKontak();
+                            status = m.getStatus();
+                            harga = Integer.parseInt(m.getHarga());
+                            manfaat = m.getManfaat();
+                            deskripsi = m.getDeskripsi();
+                            try {
+                                GuiApp.setRoot("detail-membership","Halaman Detail",false);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+
+                        setGraphic(buton);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+        };
+        aksi.setCellFactory(cellFactory);
 
         try {
             koneksiDB();
