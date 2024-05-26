@@ -8,15 +8,20 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ProfilController implements Initializable {
+    public ImageView profilePicture;
     @FXML
     private Text namaLengkap;
 
@@ -49,6 +54,14 @@ public class ProfilController implements Initializable {
             namaBelakang.setText(ambil[1]);
             emailUser.setText(ambil[2]);
             namaLengkap.setText(ambil[3]);
+
+            byte[] profileImageData = getProfileImageFromTable();
+            if (profileImageData != null) {
+                Image image = new Image(new ByteArrayInputStream(profileImageData));
+                profilePicture.setImage(image);
+            }
+            Circle clip = new Circle(83.5, 84, 83.5);
+            profilePicture.setClip(clip);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
@@ -82,6 +95,14 @@ public class ProfilController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    private byte[] getProfileImageFromTable() throws SQLException {
+        String select = "SELECT profile_picture FROM user WHERE username = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(select);
+        preparedStatement.setString(1, LoginController.tampunganUsername);
+
+        ResultSet rs = preparedStatement.executeQuery();
+        return rs.getBytes("profile_picture");
     }
 
     public void onHapusAkunclick() {
@@ -124,4 +145,38 @@ public class ProfilController implements Initializable {
         pstmt.setString(1, username);
         pstmt.executeUpdate();
     }
+    public void onUploadPictureClick() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1; ) {
+                    bos.write(buf, 0, readNum);
+                }
+                byte[] bytes = bos.toByteArray();
+
+                String update = "UPDATE user SET profile_picture = ? WHERE username = ?";
+                PreparedStatement pstmt = conn.prepareStatement(update);
+                pstmt.setBytes(1, bytes);
+                pstmt.setString(2, LoginController.tampunganUsername);
+                pstmt.executeUpdate();
+
+                profilePicture.setImage(new Image(new ByteArrayInputStream(bytes)));
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private void updateProfilePicture(byte[] imageBytes) throws SQLException {
+        String updateSQL = "UPDATE user SET profile_picture = ? WHERE username = ?";
+        PreparedStatement pstmt = conn.prepareStatement(updateSQL);
+        pstmt.setBytes(1, imageBytes);
+        pstmt.setString(2, LoginController.tampunganUsername);
+        pstmt.executeUpdate();
+    }
+
 }

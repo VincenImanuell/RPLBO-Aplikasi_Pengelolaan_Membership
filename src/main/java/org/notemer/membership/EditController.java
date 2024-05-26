@@ -2,6 +2,7 @@ package org.notemer.membership;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -26,12 +27,12 @@ public class EditController implements Initializable {
 
     public int id = UtamaController.id_membership;
     private Connection conn;
-    public TextField status;
+    public MenuButton status;
     public TextField nama;
     public  TextField harga;
     public TextField kontak;
     public TextField jenis;
-    public TextField siklus;
+    public MenuButton siklus2;
     public DatePicker mulai;
     public DatePicker berakhir;
     public TextArea manfaat;
@@ -44,14 +45,11 @@ public class EditController implements Initializable {
         jenis.setText(UtamaController.jenis);
         harga.setText(String.valueOf(UtamaController.harga));
         kontak.setText(UtamaController.kontak );
-        siklus.setText(UtamaController.pembaharuan);
+        siklus2.setText(UtamaController.pembaharuan);
         deskripsi.setText(UtamaController.deskripsi);
         status.setText(UtamaController.status);
         manfaat.setText(UtamaController.manfaat);
 
-
-//        DateTimeFormatter outputformatmulai = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-//        String output = date.format(outputformat);
 
         String tglmulai = String.valueOf(UtamaController.tanggal_mulai);
         DateTimeFormatter inputformatmulai = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -97,7 +95,7 @@ public class EditController implements Initializable {
             preparedStatement.setString(2, jenis.getText());
             preparedStatement.setString(3, String.valueOf(millsmulai));
             preparedStatement.setString(4, String.valueOf(millsberakhir));
-            preparedStatement.setString(5, siklus.getText());
+            preparedStatement.setString(5, siklus2.getText());
             preparedStatement.setString(6, kontak.getText());
             preparedStatement.setString(7, status.getText());
             preparedStatement.setString(8, harga.getText());
@@ -109,6 +107,30 @@ public class EditController implements Initializable {
             GuiApp.setRoot("utama","HomePage-NoteMer",false);
         }
 
+    }
+
+    public void onHari(ActionEvent actionEvent) {
+        siklus2.setText("Harian");
+    }
+
+    public void onMinggu(ActionEvent actionEvent) {
+        siklus2.setText("Mingguan");
+    }
+
+    public void onBulan(ActionEvent actionEvent) {
+        siklus2.setText("Bulanan");
+    }
+
+    public void onTahun(ActionEvent actionEvent) {
+        siklus2.setText("Tahunan");
+    }
+
+    public void onAktiff(ActionEvent actionEvent) {
+        status.setText("Aktif");
+    }
+
+    public void onTidak(ActionEvent actionEvent) {
+        status.setText("Tidak");
     }
 
 }

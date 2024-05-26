@@ -1,4 +1,5 @@
 package org.notemer.membership;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -73,7 +75,8 @@ public class UtamaController implements Initializable {
         conn = DriverManager.getConnection(connectionString);
     }
 
-    public void initialize(URL url, ResourceBundle resourceBundle){
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
         homeUserName.setText(LoginController.tampunganUsername);
         tabelMember.setEditable(false);
         kolomNama.setCellValueFactory(new PropertyValueFactory<Member, String>("nama_membership"));
@@ -83,17 +86,17 @@ public class UtamaController implements Initializable {
         kolomHarga.setCellValueFactory(new PropertyValueFactory<Member, Integer>("harga"));
         kolomStatus.setCellValueFactory(new PropertyValueFactory<Member, String>("status"));
 
-        Callback<TableColumn<Member, String>,TableCell<Member, String>> cellFactory = (param) -> {
-            final  TableCell<Member, String> cell = new TableCell<Member, String>(){
+        Callback<TableColumn<Member, String>, TableCell<Member, String>> cellFactory = (param) -> {
+            final TableCell<Member, String> cell = new TableCell<Member, String>() {
 
                 @Override
-                public void updateItem(String item, boolean empty){
+                public void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
 
-                    if (empty){
+                    if (empty) {
                         setGraphic(null);
                         setText(null);
-                    }else{
+                    } else {
                         final Button editbutton = new Button("Edit");
                         final Button delbutton = new Button("Delete");
                         final Button detail = new Button("Detail");
@@ -101,8 +104,8 @@ public class UtamaController implements Initializable {
                         editbutton.setStyle("-fx-background-color:#8686e1");
                         delbutton.setStyle("-fx-background-color:#e58585");
                         detail.setStyle("-fx-background-color: aqua");
-                        HBox buton = new HBox(detail,editbutton, delbutton);
-                        buton.setPadding(new Insets(5,0,5,0));
+                        HBox buton = new HBox(detail, editbutton, delbutton);
+                        buton.setPadding(new Insets(5, 0, 5, 0));
                         buton.setAlignment(Pos.CENTER);
 //
                         buton.setSpacing(10);
@@ -121,7 +124,7 @@ public class UtamaController implements Initializable {
                             manfaat = m.getManfaat();
                             deskripsi = m.getDeskripsi();
                             try {
-                                GuiApp.setRoot("edit","Halaman edit",false);
+                                GuiApp.setRoot("edit", "Halaman edit", false);
 
                                 Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Mengedit Membership: " + nama);
                                 simpanRiwayatAktivitas(riwayat);
@@ -137,12 +140,12 @@ public class UtamaController implements Initializable {
                             alert.setHeaderText("Apakah Yakin Anda Ingin Menghapus Data ?");
                             alert.setContentText("Data Anda Akan Dihapus Permanen");
                             Optional<ButtonType> del = alert.showAndWait();
-                            if (del.get() == ButtonType.OK){
+                            if (del.get() == ButtonType.OK) {
                                 try {
                                     koneksiDB();
                                     String query = "DELETE FROM membership WHERE id_membership = ?";
                                     PreparedStatement preparedStatement = conn.prepareStatement(query);
-                                    preparedStatement.setInt(1,m.getId_membership());
+                                    preparedStatement.setInt(1, m.getId_membership());
                                     preparedStatement.executeUpdate();
                                     tabelMember.setItems(getDataFromTable());
 
@@ -172,7 +175,7 @@ public class UtamaController implements Initializable {
                             manfaat = m.getManfaat();
                             deskripsi = m.getDeskripsi();
                             try {
-                                GuiApp.setRoot("detail-membership","Halaman Detail",false);
+                                GuiApp.setRoot("detail-membership", "Halaman Detail", false);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -191,9 +194,9 @@ public class UtamaController implements Initializable {
             koneksiDB();
             memberList = getDataFromTable();
             filteredData = new FilteredList<>(memberList, p -> true);
-            // Wrap the filtered data with a sorted list.
+
             SortedList<Member> sortedData = new SortedList<>(filteredData);
-            // Bind the sorted list to the table view.
+
             tabelMember.setItems(sortedData);
             searchBox.setOnKeyPressed(this::handleSearch);
         } catch (ClassNotFoundException e) {
@@ -211,8 +214,6 @@ public class UtamaController implements Initializable {
 
         PreparedStatement preparedStatement = conn.prepareStatement(select);
         preparedStatement.setString(1, LoginController.tampunganUsername);
-        ResultSet rowsAffected = preparedStatement.executeQuery();
-
 
         rs = preparedStatement.executeQuery();
         ObservableList<Member> member = FXCollections.observableArrayList(dataBaseArrayList(rs));
@@ -227,10 +228,6 @@ public class UtamaController implements Initializable {
         }
         return data;
     }
-
-//    public void getNamaUser(String text) {
-//        homeUserName.setText(text);
-//    }
 
     public void onDetailClick() {
         Alert alert;
@@ -334,5 +331,4 @@ public class UtamaController implements Initializable {
             e.printStackTrace();
         }
     }
-
 }

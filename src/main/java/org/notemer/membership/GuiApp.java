@@ -18,6 +18,7 @@ public class GuiApp extends Application {
         primaryStage.setTitle("Login NoteMer: Note Member");
         primaryStage.setScene(new Scene(loadFXML("login")));
         primaryStage.show();
+
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

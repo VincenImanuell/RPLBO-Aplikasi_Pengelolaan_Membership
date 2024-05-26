@@ -1,5 +1,6 @@
 package org.notemer.membership;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 public class LoginController {
@@ -99,9 +102,8 @@ public class LoginController {
                 alert.setHeaderText("Informasi");
                 alert.setContentText("Login Berhasil!!");
                 alert.showAndWait();
-
                 GuiApp.setRoot("utama", "HomePage-NoteMer", false);
-
+                checkMembershipExpiration();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,10 +116,75 @@ public class LoginController {
                 conn = DriverManager.getConnection(DB_URL);
             } catch (SQLException e) {
                 e.printStackTrace();
-                // Handle database connection error
             }
         }
         return conn;
+    }
+
+    public void onLupa() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Lupa Username/Password?");
+        alert.setContentText("Silahkan hubungi admin dengan nomor berikut ini!!\n081241211600");
+        alert.showAndWait();
+    }
+
+    public void onRegistrasi() throws IOException {
+        GuiApp.setRoot("registrasi", "Registrasi-NoteMer", false);
+    }
+
+    public void checkMembershipExpiration() {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:sqlite:membership.sqlite");
+            String query = "SELECT * FROM membership WHERE username = ?";
+
+
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, LoginController.tampunganUsername);
+            ResultSet rs = stmt.executeQuery();
+
+            LocalDate today = LocalDate.now();
+
+            while (rs.next()) {
+                int id = rs.getInt("id_membership");
+                String nama = rs.getString("nama_membership");
+
+                java.sql.Date sqlDate = rs.getDate("tanggal_selesai");
+
+                if (sqlDate == null) {
+                    System.out.println("Skipping row with invalid tanggal_selesai: " + id);
+                    continue;
+                }
+
+                // Convert the java.sql.Date to LocalDate
+                LocalDate expirationDate = sqlDate.toLocalDate();
+
+                // Calculate the remaining days until expiration
+                long daysLeft = ChronoUnit.DAYS.between(today, expirationDate);
+
+                // Check if the membership is about to expire
+                if (daysLeft <= 3 && daysLeft >= 0) {
+                    // Show the alert in JavaFX Application Thread
+                    String message = "Membership " + nama + " akan segera berakhir!\n" +
+                            "Membership akan berakhir " + daysLeft + " hari lagi pada tanggal: " + expirationDate;
+                    Platform.runLater(() -> showAlert(Alert.AlertType.WARNING, "Peringatan!!", message));
+                }
+            }
+
+            // Close the ResultSet, PreparedStatement, and Connection
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(Alert.AlertType type, String title, String content) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
 }

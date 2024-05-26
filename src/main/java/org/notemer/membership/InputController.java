@@ -2,12 +2,13 @@ package org.notemer.membership;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.ImageCursor;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +16,18 @@ import java.time.LocalDateTime;
 import static java.lang.Integer.parseInt;
 
 public class InputController {
+    @FXML
+    public ImageView imageMembership;
+
+    @FXML
+    private MenuButton pilihStatus;
+
+    @FXML
+    private MenuButton pilihSiklus;
+
+    private String pilihanSiklus = "";
+
+    private String pilihanStatus = "";
 
     @FXML
     private TextArea deskripsi;
@@ -35,12 +48,6 @@ public class InputController {
     private TextField namaMembership;
 
     @FXML
-    private TextField siklus;
-
-    @FXML
-    private TextField status;
-
-    @FXML
     private DatePicker tglMulai;
 
     @FXML
@@ -55,10 +62,15 @@ public class InputController {
     }
 
     public void onTambahClick(ActionEvent actionEvent) throws ClassNotFoundException, SQLException, IOException {
-        if (deskripsi.getText() == "" || harga.getText() == "" || jenisMembership.getText() == "" || kontak.getText() == "" || manfaat.getText() == "" || namaMembership.getText() == "" || siklus.getText() == "" || status.getText() == "") {
+        if (deskripsi.getText() == "" || harga.getText() == "" || jenisMembership.getText() == "" || kontak.getText() == "" || manfaat.getText() == "" || namaMembership.getText() == "" || pilihanSiklus =="" || pilihanStatus == "") {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setHeaderText("Informasi");
             alert.setContentText("Pastikan semua data terisi!");
+            alert.showAndWait();
+        } else if (tglMulai.getValue().isAfter(tglSelesai.getValue())) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Informasi");
+            alert.setContentText("Tanggal mulai harus sebelum tanggal berakhir!");
             alert.showAndWait();
         } else {
                 String desc, type, benefit, name, cycle, statuss;
@@ -68,18 +80,17 @@ public class InputController {
                 String contact = kontak.getText();
                 benefit = manfaat.getText();
                 name = namaMembership.getText();
-                cycle = siklus.getText();
-                statuss = status.getText();
+                cycle = pilihanSiklus;
+                statuss = pilihanStatus;
                 LocalDate starts = tglMulai.getValue();
                 LocalDate ends = tglSelesai.getValue();
 
                 Member member = new Member(name,type,starts,ends,cycle, contact, statuss, price, benefit, desc);
-//                table.getItems().add(member);
 
                 Connection conn;
-                ResultSet rs;
+
                 Class.forName("org.sqlite.JDBC");
-                //SQL Database connection params
+
                 String connectionString = "jdbc:sqlite:membership.sqlite";
                 conn = DriverManager.getConnection(connectionString);
 
@@ -108,7 +119,6 @@ public class InputController {
                 Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menambahkan Membership: " + member.getNama_membership());
                 simpanRiwayatAktivitas(riwayat);
 
-                // Close the database connection
                 conn.close();
         }
     }
@@ -128,4 +138,36 @@ public class InputController {
             e.printStackTrace();
         }
     }
+
+    public void onHarian(ActionEvent actionEvent) {
+        pilihanSiklus = "Harian";
+        pilihSiklus.setText("Harian");
+    }
+
+    public void onMingguan(ActionEvent actionEvent) {
+        pilihanSiklus = "Mingguan";
+        pilihSiklus.setText("Mingguan");
+    }
+
+    public void onBulanan(ActionEvent actionEvent) {
+        pilihanSiklus = "Bulanan";
+        pilihSiklus.setText("Bulanan");
+    }
+
+    public void onTahunan(ActionEvent actionEvent) {
+        pilihanSiklus = "Tahunan";
+        pilihSiklus.setText("Tahunan");
+    }
+
+    public void onAktif(ActionEvent actionEvent) {
+        pilihanStatus = "Aktif";
+        pilihStatus.setText("Aktif");
+    }
+
+    public void onTidakAktif(ActionEvent actionEvent) {
+        pilihanStatus = "Tidak Aktif";
+        pilihStatus.setText("Tidak Aktif");
+    }
+
 }
+

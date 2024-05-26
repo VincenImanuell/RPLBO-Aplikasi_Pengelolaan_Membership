@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -38,17 +39,27 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <TextField fx:id="status" focusTraversable="false" layoutX="426.0" layoutY="232.0" prefHeight="25.0" prefWidth="218.0" />
             <TextField fx:id="nama" focusTraversable="false" layoutX="116.0" layoutY="117.0" prefHeight="25.0" prefWidth="218.0" />
+            <TextField fx:id="jenis" focusTraversable="false" layoutX="116.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />
+            <DatePicker fx:id="mulai" layoutX="116.0" layoutY="232.0" prefHeight="26.0" prefWidth="220.0" />
+            <DatePicker fx:id="berakhir" layoutX="116.0" layoutY="287.0" prefHeight="26.0" prefWidth="220.0" />
+            <TextArea fx:id="manfaat" layoutX="116.0" layoutY="326.0" prefHeight="70.0" prefWidth="222.0" promptText="Manfaat Membership" />
+            <TextField fx:id="kontak" focusTraversable="false" layoutX="426.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />
             <TextField fx:id="harga" focusTraversable="false" layoutX="426.0" layoutY="288.0" prefHeight="25.0" prefWidth="218.0" />
+            <TextArea fx:id="deskripsi" layoutX="426.0" layoutY="324.0" prefHeight="71.0" prefWidth="220.0" promptText="Deskripsi Membership" />
+            <Button layoutX="394.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#edit" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #008DDA; -fx-background-radius: 15;" text="Simpan" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="86.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icon/calender.png" />
                </image>
             </ImageView>
-            <TextField fx:id="kontak" focusTraversable="false" layoutX="426.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />
-            <TextField fx:id="jenis" focusTraversable="false" layoutX="116.0" layoutY="175.0" prefHeight="25.0" prefWidth="218.0" />
-            <TextField fx:id="siklus" focusTraversable="false" layoutX="426.0" layoutY="117.0" prefHeight="25.0" prefWidth="218.0" />
             <Text fill="WHITE" layoutX="87.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nama Organisasi">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -93,11 +104,9 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
-            </Button>
-            <Button layoutX="394.0" layoutY="406.0" mnemonicParsing="false" onMouseClicked="#edit" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #008DDA; -fx-background-radius: 15;" text="Simpan" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <ImageView fitHeight="30.0" fitWidth="25.0" layoutX="86.0" layoutY="287.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -134,10 +143,20 @@
                   <Image url="@icon/recycle.png" />
                </image>
             </ImageView>
-            <DatePicker fx:id="mulai" layoutX="116.0" layoutY="232.0" prefHeight="26.0" prefWidth="220.0" />
-            <DatePicker fx:id="berakhir" layoutX="116.0" layoutY="287.0" prefHeight="26.0" prefWidth="220.0" />
-            <TextArea fx:id="manfaat" layoutX="116.0" layoutY="326.0" prefHeight="70.0" prefWidth="222.0" promptText="Manfaat Membership" />
-            <TextArea fx:id="deskripsi" layoutX="424.0" layoutY="324.0" prefHeight="71.0" prefWidth="221.0" promptText="Deskripsi Membership" />
+            <MenuButton fx:id="siklus2" layoutX="426.0" layoutY="117.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="218.0">
+              <items>
+                <MenuItem fx:id="hari" mnemonicParsing="false" onAction="#onHari" text="Harian" />
+                <MenuItem fx:id="minggu" mnemonicParsing="false" onAction="#onMinggu" text="Mingguan" />
+                  <MenuItem fx:id="bulan" mnemonicParsing="false" onAction="#onBulan" text="Bulanan" />
+                  <MenuItem fx:id="tahun" mnemonicParsing="false" onAction="#onTahun" text="Tahunan" />
+              </items>
+            </MenuButton>
+            <MenuButton fx:id="status" layoutX="426.0" layoutY="233.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="217.0">
+              <items>
+                <MenuItem fx:id="aktiff" mnemonicParsing="false" onAction="#onAktiff" text="Aktif" />
+                <MenuItem fx:id="tidak" mnemonicParsing="false" onAction="#onTidak" text="Tidak Aktif" />
+              </items>
+            </MenuButton>
          </children>
       </AnchorPane>
    </right>
