@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -433,4 +434,14 @@ public class UtamaController implements Initializable {
 
         tabelMember.setItems(member);
      }
+
+    public void grafik(MouseEvent mouseEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("grafik.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Halaman Grafik Membership User");
+        stage.show();
+    }
 }
