@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="62.0" prefWidth="686.0" style="-fx-background-color: #365563;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="WHITE" layoutX="63.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NoteMer" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="62.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note - Membership" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold Italic" size="14.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="18.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/book-header.png" />
+               </image>
+            </ImageView>
+            <MenuButton layoutX="601.0" layoutY="6.0" mnemonicParsing="false" style="-fx-background-color: #365563;">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onProfilClick" text="Profil">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/profile.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#onLogOutClick" text="Logout">
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/logout.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/user-circle.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </MenuButton>
+            <Label fx:id="homeUserName" layoutX="530.0" layoutY="17.0" prefHeight="18.0" prefWidth="60.0" text="Label" textAlignment="RIGHT" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="397.0" prefWidth="686.0" BorderPane.alignment="CENTER">
+         <children>
+            <Line endX="572.3333129882812" layoutX="101.0" layoutY="64.0" startX="-86.19999694824219" />
+            <Text fill="#365563" layoutX="168.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HALAMAN PENGELOLAAN ADMIN" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Text>
+            <Button layoutX="377.0" layoutY="344.0" mnemonicParsing="false" onAction="#onDetailClick" prefHeight="28.0" prefWidth="99.0" style="-fx-background-color: #365563; -fx-background-radius: 35;" text="Click Here" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="150.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/help.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="MOVE" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Text fill="#365563" layoutX="203.0" layoutY="364.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Info Pengembang Aplikasi !">
+               <font>
+                  <Font name="System Bold Italic" size="13.0" />
+               </font>
+            </Text>
+            <Button layoutX="239.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#grafik" prefHeight="43.0" prefWidth="206.0" style="-fx-background-color: #365563;" text="USER" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font></Button>
+            <Button layoutX="239.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#grafik" prefHeight="43.0" prefWidth="203.0" style="-fx-background-color: #365563;" text="MEMBERSHIP" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button layoutX="242.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#grafik" prefHeight="43.0" prefWidth="201.0" style="-fx-background-color: #365563;" text="RIWAYAT" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="24.0" />
+               </font>
+            </Button>
+            <Text fill="#365563" layoutX="257.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Silahkan Pilih Menu" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
