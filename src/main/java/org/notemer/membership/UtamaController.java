@@ -257,6 +257,7 @@ public class UtamaController implements Initializable {
                 }
             }
         } else if (option.get() == ButtonType.OK) {
+            SessionManager.getInstance().logout();
             GuiApp.setRoot("login", "Login NoteMer: Note Member", false);
         } else if (option.get() == ButtonType.CANCEL) {
             for (ButtonType bt : alert.getDialogPane().getButtonTypes()) {

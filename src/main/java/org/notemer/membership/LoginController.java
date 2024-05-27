@@ -29,7 +29,7 @@ public class LoginController {
     private final String DB_URL = "jdbc:sqlite:membership.sqlite";
 
 
-    public static String tampunganUsername;
+    public static String tampunganUsername = "";
 
     public ImageView lblOpenEye;
     public ImageView lblCloseEye;
@@ -98,6 +98,7 @@ public class LoginController {
                 alert.showAndWait();
                 txtUsername.requestFocus();
             } else {
+                SessionManager.getInstance().login();
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText("Informasi");
                 alert.setContentText("Login Berhasil!!");

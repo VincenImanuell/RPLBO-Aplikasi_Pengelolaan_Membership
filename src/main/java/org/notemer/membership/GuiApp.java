@@ -14,11 +14,18 @@ public class GuiApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        primaryStage = stage;
-        primaryStage.setTitle("Login NoteMer: Note Member");
-        primaryStage.setScene(new Scene(loadFXML("login")));
-        primaryStage.show();
-
+        if (!(SessionManager.getInstance().isLoggedIn())) {
+            primaryStage = stage;
+            primaryStage.setTitle("Login NoteMer: Note Member");
+            primaryStage.setScene(new Scene(loadFXML("login")));
+            primaryStage.show();
+        } else {
+            LoginController.tampunganUsername = SessionManager.getInstance().getUsername();
+            primaryStage = stage;
+            primaryStage.setTitle("Home-Page: Note-Mer");
+            primaryStage.setScene(new Scene(loadFXML("utama")));
+            primaryStage.show();
+        }
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
