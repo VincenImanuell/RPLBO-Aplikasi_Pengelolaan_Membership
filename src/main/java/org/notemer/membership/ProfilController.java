@@ -39,13 +39,6 @@ public class ProfilController implements Initializable {
 
     Connection conn;
 
-    protected void koneksiDB() throws SQLException, ClassNotFoundException {
-        Class.forName("org.sqlite.JDBC");
-        //SQL Database connection params
-        String connectionString = "jdbc:sqlite:membership.sqlite";
-        conn = DriverManager.getConnection(connectionString);
-    }
-
     public void initialize(URL url, ResourceBundle resourceBundle) {
         namaUser.setText(LoginController.tampunganUsername);
         try {
@@ -170,13 +163,6 @@ public class ProfilController implements Initializable {
                 e.printStackTrace();
             }
         }
-    }
-    private void updateProfilePicture(byte[] imageBytes) throws SQLException {
-        String updateSQL = "UPDATE user SET profile_picture = ? WHERE username = ?";
-        PreparedStatement pstmt = conn.prepareStatement(updateSQL);
-        pstmt.setBytes(1, imageBytes);
-        pstmt.setString(2, LoginController.tampunganUsername);
-        pstmt.executeUpdate();
     }
 
 }

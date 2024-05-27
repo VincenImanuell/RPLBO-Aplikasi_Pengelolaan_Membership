@@ -169,5 +169,33 @@ public class InputController {
         pilihStatus.setText("Tidak Aktif");
     }
 
+    public void onUploadPictureClick() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg"));
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                FileInputStream fis = new FileInputStream(file);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] buf = new byte[1024];
+                for (int readNum; (readNum = fis.read(buf)) != -1; ) {
+                    bos.write(buf, 0, readNum);
+                }
+                byte[] bytes = bos.toByteArray();
+
+                String update = "UPDATE membership SET membership_picture = ? WHERE username = ? AND nama_membership = ?";
+                Connection conn = DriverManager.getConnection("jdbc:sqlite:membership.sqlite");
+                PreparedStatement pstmt = conn.prepareStatement(update);
+                pstmt.setBytes(1, bytes);
+                pstmt.setString(2, LoginController.tampunganUsername);
+                pstmt.setString(3, UtamaController.nama);
+                pstmt.executeUpdate();
+
+                imageMembership.setImage(new Image(new ByteArrayInputStream(bytes)));
+            } catch (IOException | SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
 

@@ -1,5 +1,4 @@
 package org.notemer.membership;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -13,12 +12,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
-import javafx.fxml.FXML;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -26,7 +22,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
@@ -35,8 +30,9 @@ import java.sql.*;
 
 public class UtamaController implements Initializable {
 
+    public MenuButton sort;
+
     public Label homeUserName;
-    public Label ambilId;
     public TableView<Member> tabelMember;
     public TableColumn<Member, String> kolomNama;
     public TableColumn<Member, String> kolomJenis;
@@ -193,9 +189,7 @@ public class UtamaController implements Initializable {
             koneksiDB();
             memberList = getDataFromTable();
             filteredData = new FilteredList<>(memberList, p -> true);
-            // Wrap the filtered data with a sorted list.
             SortedList<Member> sortedData = new SortedList<>(filteredData);
-            // Bind the sorted list to the table view.
             tabelMember.setItems(sortedData);
             searchBox.setOnKeyPressed(this::handleSearch);
         } catch (ClassNotFoundException e) {
@@ -331,4 +325,28 @@ public class UtamaController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void onNone() {
+        sort.setText("Sort");
+    }
+
+    public void onAZ() {
+        sort.setText("Nama A-Z");
+    }
+
+     public void onJauh() {
+        sort.setText("Jauh");
+     }
+
+     public void onDekat() {
+        sort.setText("Dekat");
+     }
+
+     public void onAktif() {
+        sort.setText("Aktif");
+     }
+
+     public void onBerakhir() {
+        sort.setText("Berakhir");
+     }
 }

@@ -93,13 +93,14 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MenuButton layoutX="246.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: #365563;">
+            <MenuButton fx:id="sort" layoutX="246.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: #365563;">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Nama A-Z" />
-                  <MenuItem mnemonicParsing="false" text="Berakhir Terjauh" />
-                  <MenuItem mnemonicParsing="false" text="Berakhir Terdekat" />
-                  <MenuItem mnemonicParsing="false" text="Aktif" />
-                  <MenuItem mnemonicParsing="false" text="Berakhir" />
+                  <MenuItem mnemonicParsing="false" onAction="#onNone" text="None" />
+                  <MenuItem mnemonicParsing="false" onAction="#onAZ" text="Nama A-Z" />
+                  <MenuItem mnemonicParsing="false" onAction="#onJauh" text="Berakhir Terjauh" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDekat" text="Berakhir Terdekat" />
+                  <MenuItem mnemonicParsing="false" onAction="#onAktif" text="Aktif" />
+                  <MenuItem mnemonicParsing="false" onAction="#onBerakhir" text="Berakhir" />
                </items>
                <graphic>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort">

@@ -75,7 +75,6 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <ImageView fx:id="image" fitHeight="220.0" fitWidth="200.0" layoutX="95.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true" />
             <Text fx:id="kontak" fill="WHITE" layoutX="148.0" layoutY="331.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+6283746928732">
                <font>
                   <Font name="Arial Bold" size="12.0" />
@@ -99,9 +98,9 @@
                </font>
             </Text>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c4c4c4" height="26.0" layoutX="171.0" layoutY="370.0" stroke="BLACK" strokeType="INSIDE" width="77.0" />
-            <Text fx:id="jenis" layoutX="172.0" layoutY="388.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Silver" textAlignment="CENTER" wrappingWidth="75.689453125">
+            <Text fx:id="jenis" layoutX="172.0" layoutY="386.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Silver" textAlignment="CENTER" wrappingWidth="75.689453125">
                <font>
-                  <Font name="Arial Bold" size="12.0" />
+                  <Font name="Arial Bold" size="8.0" />
                </font>
             </Text>
             <Text fill="WHITE" layoutX="397.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Manfaat">
@@ -153,6 +152,9 @@
                   <Font name="Arial Bold" size="14.0" />
                </font>
             </Text>
+            <Button layoutX="164.0" layoutY="286.0" mnemonicParsing="false" onAction="#onUploadPictureClick" text="Add Image" />
+            <Text fill="WHITE" layoutX="172.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Image" />
+            <ImageView fx:id="image" fitHeight="167.0" fitWidth="167.0" layoutX="118.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </left>
