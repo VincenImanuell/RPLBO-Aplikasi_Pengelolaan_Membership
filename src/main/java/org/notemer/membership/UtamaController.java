@@ -3,6 +3,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,11 +23,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.sql.*;
+import java.util.Date;
 
 public class UtamaController implements Initializable {
 
@@ -142,7 +141,7 @@ public class UtamaController implements Initializable {
                                     PreparedStatement preparedStatement = conn.prepareStatement(query);
                                     preparedStatement.setInt(1,m.getId_membership());
                                     preparedStatement.executeUpdate();
-                                    tabelMember.setItems(getDataFromTable());
+                                    tabelMember.setItems(getDataFromTable(sort.getText()));
 
                                     Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menghapus Membership: " + m.getNama_membership());
                                     simpanRiwayatAktivitas(riwayat);
@@ -187,7 +186,7 @@ public class UtamaController implements Initializable {
 
         try {
             koneksiDB();
-            memberList = getDataFromTable();
+            memberList = getDataFromTable(sort.getText());
             filteredData = new FilteredList<>(memberList, p -> true);
             SortedList<Member> sortedData = new SortedList<>(filteredData);
             tabelMember.setItems(sortedData);
@@ -199,20 +198,23 @@ public class UtamaController implements Initializable {
         }
     }
 
-    public ObservableList<Member> getDataFromTable() throws SQLException, ClassNotFoundException {
-
-        conn = DriverManager.getConnection("jdbc:sqlite:membership.sqlite");
-        ResultSet rs;
-        String select = "SELECT * FROM membership WHERE username = ?";
-
-        PreparedStatement preparedStatement = conn.prepareStatement(select);
+    public ObservableList<Member> getDataFromTable(String parameter) throws SQLException, ClassNotFoundException {
+        String query = "SELECT * FROM membership WHERE username = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
         preparedStatement.setString(1, LoginController.tampunganUsername);
-        ResultSet rowsAffected = preparedStatement.executeQuery();
-
-        rs = preparedStatement.executeQuery();
-        ObservableList<Member> member = FXCollections.observableArrayList(dataBaseArrayList(rs));
+        ResultSet rs = preparedStatement.executeQuery();
+        ObservableList<Member> member = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Member m = new Member(rs.getInt("id_membership"), rs.getString("nama_membership"),
+                    rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class),
+                    rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"),
+                    rs.getString("kontak"), rs.getString("status"), rs.getString("harga"),
+                    rs.getString("manfaat"), rs.getString("deskripsi"));
+            member.add(m);
+        }
         return member;
     }
+
 
     private ArrayList dataBaseArrayList(ResultSet rs) throws SQLException {
         ArrayList<Member> data = new ArrayList<>();
@@ -326,27 +328,108 @@ public class UtamaController implements Initializable {
         }
     }
 
-    public void onNone() {
+    public void onNone(ActionEvent event) throws SQLException, ClassNotFoundException {
         sort.setText("Sort");
+        MenuItem menuItem = (MenuItem) event.getSource();
+        String sortOption = menuItem.getText();
+        sort.setText(sortOption);
+        ObservableList<Member> sortedData = getDataFromTable(sortOption);
+        tabelMember.setItems(sortedData);
+        tabelMember.refresh(); // Refresh TableView
     }
 
-    public void onAZ() {
+    public void onAZ() throws SQLException {
         sort.setText("Nama A-Z");
+        String query = "SELECT * FROM membership WHERE username = ? ORDER BY nama_membership ASC ";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, LoginController.tampunganUsername);
+        ResultSet rs = preparedStatement.executeQuery();
+        ObservableList<Member> member = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Member m = new Member(rs.getInt("id_membership"), rs.getString("nama_membership"),
+                    rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class),
+                    rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"),
+                    rs.getString("kontak"), rs.getString("status"), rs.getString("harga"),
+                    rs.getString("manfaat"), rs.getString("deskripsi"));
+            member.add(m);
+        }
+
+        tabelMember.setItems(member);
     }
 
-     public void onJauh() {
-        sort.setText("Jauh");
+     public void onJauh() throws SQLException {
+        sort.setText("Berakhir Terjauh");
+        String query = "SELECT * FROM membership WHERE username = ? ORDER BY tanggal_selesai DESC";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, LoginController.tampunganUsername);
+        ResultSet rs = preparedStatement.executeQuery();
+        ObservableList<Member> member = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Member m = new Member(rs.getInt("id_membership"), rs.getString("nama_membership"),
+                    rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class),
+                    rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"),
+                    rs.getString("kontak"), rs.getString("status"), rs.getString("harga"),
+                    rs.getString("manfaat"), rs.getString("deskripsi"));
+            member.add(m);
+        }
+
+        tabelMember.setItems(member);
      }
 
-     public void onDekat() {
-        sort.setText("Dekat");
+     public void onDekat() throws SQLException {
+        sort.setText("Berakhir Terdekat");
+        String query = "SELECT * FROM membership WHERE username = ? ORDER BY tanggal_selesai ASC";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, LoginController.tampunganUsername);
+        ResultSet rs = preparedStatement.executeQuery();
+        ObservableList<Member> member = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Member m = new Member(rs.getInt("id_membership"), rs.getString("nama_membership"),
+                    rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class),
+                    rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"),
+                    rs.getString("kontak"), rs.getString("status"), rs.getString("harga"),
+                    rs.getString("manfaat"), rs.getString("deskripsi"));
+            member.add(m);
+        }
+
+        tabelMember.setItems(member);
      }
 
-     public void onAktif() {
+     public void onAktif() throws SQLException {
         sort.setText("Aktif");
+        String query = "SELECT * FROM membership WHERE username = ? AND status = 'Aktif'";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, LoginController.tampunganUsername);
+        ResultSet rs = preparedStatement.executeQuery();
+        ObservableList<Member> member = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Member m = new Member(rs.getInt("id_membership"), rs.getString("nama_membership"),
+                    rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class),
+                    rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"),
+                    rs.getString("kontak"), rs.getString("status"), rs.getString("harga"),
+                    rs.getString("manfaat"), rs.getString("deskripsi"));
+            member.add(m);
+        }
+
+        tabelMember.setItems(member);
      }
 
-     public void onBerakhir() {
+     public void onBerakhir() throws SQLException {
         sort.setText("Berakhir");
+        String query = "SELECT * FROM membership WHERE username = ? AND status = 'Tidak Aktif' ";
+        PreparedStatement preparedStatement = conn.prepareStatement(query);
+        preparedStatement.setString(1, LoginController.tampunganUsername);
+        ResultSet rs = preparedStatement.executeQuery();
+        ObservableList<Member> member = FXCollections.observableArrayList();
+        while (rs.next()) {
+            Member m = new Member(rs.getInt("id_membership"), rs.getString("nama_membership"),
+                    rs.getString("jenis_keanggotaan"), rs.getObject("tanggal_mulai", LocalDate.class),
+                    rs.getObject("tanggal_selesai", LocalDate.class), rs.getString("siklus_pembaruan"),
+                    rs.getString("kontak"), rs.getString("status"), rs.getString("harga"),
+                    rs.getString("manfaat"), rs.getString("deskripsi"));
+            member.add(m);
+        }
+
+        tabelMember.setItems(member);
      }
 }

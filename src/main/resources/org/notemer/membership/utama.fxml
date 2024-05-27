@@ -93,20 +93,21 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MenuButton fx:id="sort" layoutX="246.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="43.0" style="-fx-background-color: #365563;">
+            <MenuButton fx:id="sort" layoutX="246.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="142.0" style="-fx-background-color: #365563;" text="Sort" textFill="WHITE">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#onNone" text="None" />
                   <MenuItem mnemonicParsing="false" onAction="#onAZ" text="Nama A-Z" />
                   <MenuItem mnemonicParsing="false" onAction="#onJauh" text="Berakhir Terjauh" />
                   <MenuItem mnemonicParsing="false" onAction="#onDekat" text="Berakhir Terdekat" />
                   <MenuItem mnemonicParsing="false" onAction="#onAktif" text="Aktif" />
                   <MenuItem mnemonicParsing="false" onAction="#onBerakhir" text="Berakhir" />
+                  <MenuItem mnemonicParsing="false" onAction="#onNone" text="None" />
                </items>
                <graphic>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sort">
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
-                     </cursor></Text>
+                     </cursor>
+                  </Text>
                </graphic>
             </MenuButton>
             <TableView fx:id="tabelMember" layoutX="14.0" layoutY="107.0" prefHeight="300.0" prefWidth="836.0">
