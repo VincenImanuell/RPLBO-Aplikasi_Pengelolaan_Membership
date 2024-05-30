@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController {
@@ -76,39 +77,49 @@ public class LoginController {
 
     @FXML
     protected void btnLoginClick() throws IOException, SQLException {
-        getConnection();
-
         Alert alert;
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         tampunganUsername = username;
 
+        if (Objects.equals(username, "admin") && Objects.equals(password, "admin")){
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Informasi");
+            alert.setContentText("Login Berhasil!!");
+            alert.showAndWait();
+            GuiApp.setRoot("Admin", "Halaman Utama Admin", false);
+        }else {
+            getConnection();
+            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
 
-        String query = "SELECT * FROM user WHERE username = ? AND password = ?";
+            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+                ResultSet rowsAffected = preparedStatement.executeQuery();
 
-        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-            ResultSet rowsAffected = preparedStatement.executeQuery();
-
-            if (!rowsAffected.isBeforeFirst() ) {
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Gagal");
-                alert.setContentText("Login Gagal!! Password atau Username Salah.");
-                alert.showAndWait();
-                txtUsername.requestFocus();
-            } else {
-                SessionManager.getInstance().login();
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Informasi");
-                alert.setContentText("Login Berhasil!!");
-                alert.showAndWait();
-                GuiApp.setRoot("utama", "HomePage-NoteMer", false);
-                checkMembershipExpiration();
+                if (!rowsAffected.isBeforeFirst()) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Gagal");
+                    alert.setContentText("Login Gagal!! Password atau Username Salah.");
+                    alert.showAndWait();
+                    txtUsername.requestFocus();
+                } else {
+                    SessionManager.getInstance().login();
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setHeaderText("Informasi");
+                    alert.setContentText("Login Berhasil!!");
+                    alert.showAndWait();
+                    GuiApp.setRoot("utama", "HomePage-NoteMer", false);
+                    checkMembershipExpiration();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
+
+
+
     }
 
     public Connection getConnection() {

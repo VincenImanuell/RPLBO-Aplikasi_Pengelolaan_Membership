@@ -122,45 +122,6 @@ public class DetailController implements Initializable {
         }
         nama_organisasi.setText(UtamaController.nama);
 
-        if (Objects.equals(UtamaController.nama, "Spotify")){
-            File file = new File("images/spotify.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-
-        } else if (Objects.equals(UtamaController.nama, "Coc")) {
-            File file = new File("images/coc.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        } else if (Objects.equals(UtamaController.nama, "Youtube")) {
-            File file = new File("images/youtube.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        } else if (Objects.equals(UtamaController.nama, "Telegram")) {
-            File file = new File("images/telegram.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        }  else if (Objects.equals(UtamaController.nama, "Google Play")) {
-            File file = new File("images/googleplay.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        }   else if (Objects.equals(UtamaController.nama, "ChatGpt")) {
-            File file = new File("images/chatgpt.jpg");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        }   else if (Objects.equals(UtamaController.nama, "Netflix")) {
-            File file = new File("images/netflix.jpg");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        }   else if (Objects.equals(UtamaController.nama, "Wps Office")) {
-            File file = new File("images/wps.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        }   else if (Objects.equals(UtamaController.nama, "Canva")) {
-            File file = new File("images/canva.png");
-            Image images = new Image(file.toURI().toString());
-            image.setImage(images);
-        }
-
     }
 
     public void back(MouseEvent mouseEvent) throws IOException {

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notemer.membership.AdminGrafikController">
+   <children>
+      <LineChart fx:id="linechart" layoutX="23.0" layoutY="37.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <Text fill="#365563" layoutX="97.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Line Chart Nama Menbership dan Harga Membership">
+         <font>
+            <Font name="Arial Bold" size="14.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

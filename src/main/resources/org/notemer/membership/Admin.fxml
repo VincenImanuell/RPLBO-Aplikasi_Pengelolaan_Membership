@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="464.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.notemer.membership.AdminController">
    <top>
       <AnchorPane prefHeight="62.0" prefWidth="686.0" style="-fx-background-color: #365563;" BorderPane.alignment="CENTER">
          <children>
@@ -28,7 +34,7 @@
             </ImageView>
             <MenuButton layoutX="601.0" layoutY="6.0" mnemonicParsing="false" style="-fx-background-color: #365563;">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onProfilClick" text="Profil">
+                <MenuItem mnemonicParsing="false"  text="Profil">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -37,7 +43,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#onLogOutClick" text="Logout">
+                  <MenuItem mnemonicParsing="false"  text="Logout">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -66,12 +72,12 @@
       <AnchorPane prefHeight="397.0" prefWidth="686.0" BorderPane.alignment="CENTER">
          <children>
             <Line endX="572.3333129882812" layoutX="101.0" layoutY="64.0" startX="-86.19999694824219" />
-            <Text fill="#365563" layoutX="168.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HALAMAN PENGELOLAAN ADMIN" textAlignment="CENTER">
+            <Text fill="#365563" layoutX="149.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HALAMAN PENGELOLAAN ADMIN" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Button layoutX="377.0" layoutY="344.0" mnemonicParsing="false" onAction="#onDetailClick" prefHeight="28.0" prefWidth="99.0" style="-fx-background-color: #365563; -fx-background-radius: 35;" text="Click Here" textFill="WHITE">
+            <Button layoutX="377.0" layoutY="344.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="99.0" style="-fx-background-color: #365563; -fx-background-radius: 35;" text="Click Here" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -94,16 +100,16 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Text>
-            <Button layoutX="239.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#grafik" prefHeight="43.0" prefWidth="206.0" style="-fx-background-color: #365563;" text="USER" textFill="WHITE">
+            <Button layoutX="239.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#menuuser" prefHeight="43.0" prefWidth="206.0" style="-fx-background-color: #365563;" text="USER" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font></Button>
-            <Button layoutX="239.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#grafik" prefHeight="43.0" prefWidth="203.0" style="-fx-background-color: #365563;" text="MEMBERSHIP" textFill="WHITE">
+            <Button layoutX="239.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#menumembership" prefHeight="43.0" prefWidth="203.0" style="-fx-background-color: #365563;" text="MEMBERSHIP" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Button>
-            <Button layoutX="242.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#grafik" prefHeight="43.0" prefWidth="201.0" style="-fx-background-color: #365563;" text="RIWAYAT" textFill="WHITE">
+            <Button layoutX="242.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#menuriwayat" prefHeight="43.0" prefWidth="201.0" style="-fx-background-color: #365563;" text="RIWAYAT" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
