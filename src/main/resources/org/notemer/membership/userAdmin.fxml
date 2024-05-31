@@ -66,21 +66,11 @@
       <AnchorPane prefHeight="462.0" prefWidth="778.0" BorderPane.alignment="CENTER">
          <children>
             <Line endX="748.3333129882812" layoutX="101.0" layoutY="47.0" startX="-86.19999694824219" />
-            <TextField fx:id="searchBox" layoutX="16.0" layoutY="61.0" prefHeight="26.0" prefWidth="182.0" promptText="Search......" />
             <Text fill="#365563" layoutX="22.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Daftar Semua User" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Text>
-            <Button layoutX="199.0" layoutY="61.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" style="-fx-background-color: #365563;">
-               <graphic>
-                  <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icon/search.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
             <Button layoutX="717.0" layoutY="60.0" mnemonicParsing="false" onAction="#onAddClick" prefHeight="27.0" prefWidth="120.0" style="-fx-background-color: #0cd742;" text="Tambah Data " textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="19.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
@@ -93,10 +83,10 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MenuButton fx:id="sort" layoutX="246.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="142.0" style="-fx-background-color: #365563;" text="Sort" textFill="WHITE">
+            <MenuButton fx:id="sort" layoutX="15.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="142.0" style="-fx-background-color: #365563;" text="Sort" textFill="WHITE">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#onAZ" text="Nama A-Z" />
-                  <MenuItem mnemonicParsing="false" onAction="#onNone" text="None" />
+                  <MenuItem mnemonicParsing="false" onAction="#onNone" text="Default" />
                </items>
                <graphic>
                   <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">

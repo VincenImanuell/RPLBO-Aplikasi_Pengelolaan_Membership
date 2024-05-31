@@ -41,4 +41,6 @@ public class AdminGrafikController implements Initializable {
         }
 
     }
+
+
 }
