@@ -14,16 +14,12 @@ import java.util.ResourceBundle;
 public class AdminController implements Initializable {
     public Label homeUserName;
 
-    public void menuriwayat(MouseEvent mouseEvent) throws IOException {
-        GuiApp.setRoot("riwayatAdmin","Halaman Admin Riwayat",false);
-    }
-
     public void menumembership(MouseEvent mouseEvent) throws IOException {
-        GuiApp.setRoot("membershipAdmin","Halaman Admin Riwayat",false);
+        GuiApp.setRoot("membershipAdmin","Halaman Admin Membership",false);
     }
 
     public void menuuser(MouseEvent mouseEvent) throws IOException {
-        GuiApp.setRoot("userAdmin","Halaman Admin Riwayat",false);
+        GuiApp.setRoot("userAdmin","Halaman Admin User",false);
     }
 
     @Override

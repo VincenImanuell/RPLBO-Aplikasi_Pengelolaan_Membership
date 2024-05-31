@@ -28,15 +28,6 @@
             </ImageView>
             <MenuButton layoutX="784.0" layoutY="4.0" mnemonicParsing="false" style="-fx-background-color: #365563;">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#onProfilClick" text="Profil">
-                     <graphic>
-                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@icon/profile.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </MenuItem>
                   <MenuItem mnemonicParsing="false" onAction="#onLogOutClick" text="Logout">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
