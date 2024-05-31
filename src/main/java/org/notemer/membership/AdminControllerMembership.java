@@ -110,10 +110,6 @@ public class AdminControllerMembership implements Initializable {
         tabelMember.setItems(member);
     }
 
-    @FXML
-    void onAddClick(ActionEvent event) {
-
-    }
 
     @FXML
     public void onAktif(ActionEvent event) throws SQLException {
@@ -235,16 +231,13 @@ public class AdminControllerMembership implements Initializable {
 
     @FXML
     public void onNone(ActionEvent event) throws SQLException, ClassNotFoundException {
-//        sort.setText("Sort");
-//        MenuItem menuItem = (MenuItem) event.getSource();
-//        String sortOption = menuItem.getText();
-//        sort.setText(sortOption);
-//        ObservableList<Member> sortedData = getDataFromTable(sortOption);
-//        tabelMember.setItems(sortedData);
-//        tabelMember.refresh(); // Refresh TableView
-        refres();
-
-
+        sort.setText("Sort");
+        MenuItem menuItem = (MenuItem) event.getSource();
+        String sortOption = menuItem.getText();
+        sort.setText(sortOption);
+        ObservableList<Member> sortedData = getDataFromTable(sortOption);
+        tabelMember.setItems(sortedData);
+        tabelMember.refresh(); // Refresh TableView
     }
 
     @FXML
@@ -275,26 +268,26 @@ public class AdminControllerMembership implements Initializable {
 
                 @Override
                 public void updateItem(String item, boolean empty){
-                    super.updateItem(item, empty);
-
-                    if (empty){
-                        setGraphic(null);
-                        setText(null);
-                    }else{
-                        final Button editbutton = new Button("Edit");
-                        final Button delbutton = new Button("Delete");
-                        final Button detail = new Button("Detail");
-
-                        editbutton.setStyle("-fx-background-color:#8686e1");
-                        delbutton.setStyle("-fx-background-color:#e58585");
-                        detail.setStyle("-fx-background-color: aqua");
-                        HBox buton = new HBox(detail,editbutton, delbutton);
-                        buton.setPadding(new Insets(5,0,5,0));
-                        buton.setAlignment(Pos.CENTER);
+//                    super.updateItem(item, empty);
 //
-                        buton.setSpacing(10);
-
-                        editbutton.setOnAction(actionEvent -> {
+//                    if (empty){
+//                        setGraphic(null);
+//                        setText(null);
+//                    }else{
+//                        final Button editbutton = new Button("Edit");
+//                        final Button delbutton = new Button("Delete");
+//                        final Button detail = new Button("Detail");
+//
+//                        editbutton.setStyle("-fx-background-color:#8686e1");
+//                        delbutton.setStyle("-fx-background-color:#e58585");
+//                        detail.setStyle("-fx-background-color: aqua");
+//                        HBox buton = new HBox(detail,editbutton, delbutton);
+//                        buton.setPadding(new Insets(5,0,5,0));
+//                        buton.setAlignment(Pos.CENTER);
+//
+//                        buton.setSpacing(10);
+//
+//                        editbutton.setOnAction(actionEvent -> {
 //                            Member m = getTableView().getItems().get(getIndex());
 //                            id_membership = m.getId_membership();
 //                            nama = m.getNama_membership();
@@ -316,36 +309,36 @@ public class AdminControllerMembership implements Initializable {
 //                            } catch (IOException e) {
 //                                throw new RuntimeException(e);
 //                            }
-                        });
-                        delbutton.setOnAction(actionEvent -> {
-                            Member m = getTableView().getItems().get(getIndex());
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Konfirmasi Hapus Data");
-                            alert.setHeaderText("Apakah Yakin Anda Ingin Menghapus Data ?");
-                            alert.setContentText("Data Anda Akan Dihapus Permanen");
-                            Optional<ButtonType> del = alert.showAndWait();
-                            if (del.get() == ButtonType.OK){
-                                try {
-                                    koneksiDB();
-                                    String query = "DELETE FROM membership WHERE id_membership = ?";
-                                    PreparedStatement preparedStatement = conn.prepareStatement(query);
-                                    preparedStatement.setInt(1,m.getId_membership());
-                                    preparedStatement.executeUpdate();
-                                    tabelMember.setItems(getDataFromTable(sort.getText()));
-
-                                    Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menghapus Membership: " + m.getNama_membership());
-                                    simpanRiwayatAktivitas(riwayat);
-
-                                } catch (SQLException e) {
-                                    throw new RuntimeException(e);
-                                } catch (ClassNotFoundException e) {
-                                    throw new RuntimeException(e);
-                                }
-
-                            }
-                        });
-
-                        detail.setOnAction(actionEvent -> {
+//                        });
+//                        delbutton.setOnAction(actionEvent -> {
+//                            Member m = getTableView().getItems().get(getIndex());
+//                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//                            alert.setTitle("Konfirmasi Hapus Data");
+//                            alert.setHeaderText("Apakah Yakin Anda Ingin Menghapus Data ?");
+//                            alert.setContentText("Data Anda Akan Dihapus Permanen");
+//                            Optional<ButtonType> del = alert.showAndWait();
+//                            if (del.get() == ButtonType.OK){
+//                                try {
+//                                    koneksiDB();
+//                                    String query = "DELETE FROM membership WHERE id_membership = ?";
+//                                    PreparedStatement preparedStatement = conn.prepareStatement(query);
+//                                    preparedStatement.setInt(1,m.getId_membership());
+//                                    preparedStatement.executeUpdate();
+//                                    tabelMember.setItems(getDataFromTable(sort.getText()));
+//
+//                                    Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menghapus Membership: " + m.getNama_membership());
+//                                    simpanRiwayatAktivitas(riwayat);
+//
+//                                } catch (SQLException e) {
+//                                    throw new RuntimeException(e);
+//                                } catch (ClassNotFoundException e) {
+//                                    throw new RuntimeException(e);
+//                                }
+//
+//                            }
+//                        });
+//
+//                        detail.setOnAction(actionEvent -> {
 //                            Member m = getTableView().getItems().get(getIndex());
 //                            id_membership = m.getId_membership();
 //                            nama = m.getNama_membership();
@@ -363,16 +356,15 @@ public class AdminControllerMembership implements Initializable {
 //                            } catch (IOException e) {
 //                                throw new RuntimeException(e);
 //                            }
-                        });
-
-                        setGraphic(buton);
-                        setText(null);
-                    }
+//                        });
+//
+//                        setGraphic(buton);
+//                        setText(null);
+//                    }
                 }
             };
             return cell;
         };
-        aksi.setCellFactory(cellFactory);
 
         try {
             koneksiDB();
@@ -459,26 +451,26 @@ public class AdminControllerMembership implements Initializable {
 
                 @Override
                 public void updateItem(String item, boolean empty){
-                    super.updateItem(item, empty);
+//                    super.updateItem(item, empty);
 
-                    if (empty){
-                        setGraphic(null);
-                        setText(null);
-                    }else{
-                        final Button editbutton = new Button("Edit");
-                        final Button delbutton = new Button("Delete");
-                        final Button detail = new Button("Detail");
-
-                        editbutton.setStyle("-fx-background-color:#8686e1");
-                        delbutton.setStyle("-fx-background-color:#e58585");
-                        detail.setStyle("-fx-background-color: aqua");
-                        HBox buton = new HBox(detail,editbutton, delbutton);
-                        buton.setPadding(new Insets(5,0,5,0));
-                        buton.setAlignment(Pos.CENTER);
+//                    if (empty){
+//                        setGraphic(null);
+//                        setText(null);
+//                    }else{
+//                        final Button editbutton = new Button("Edit");
+//                        final Button delbutton = new Button("Delete");
+//                        final Button detail = new Button("Detail");
 //
-                        buton.setSpacing(10);
-
-                        editbutton.setOnAction(actionEvent -> {
+//                        editbutton.setStyle("-fx-background-color:#8686e1");
+//                        delbutton.setStyle("-fx-background-color:#e58585");
+//                        detail.setStyle("-fx-background-color: aqua");
+//                        HBox buton = new HBox(detail,editbutton, delbutton);
+//                        buton.setPadding(new Insets(5,0,5,0));
+//                        buton.setAlignment(Pos.CENTER);
+//
+//                        buton.setSpacing(10);
+//
+//                        editbutton.setOnAction(actionEvent -> {
 //                            Member m = getTableView().getItems().get(getIndex());
 //                            id_membership = m.getId_membership();
 //                            nama = m.getNama_membership();
@@ -500,8 +492,8 @@ public class AdminControllerMembership implements Initializable {
 //                            } catch (IOException e) {
 //                                throw new RuntimeException(e);
 //                            }
-                        });
-                        delbutton.setOnAction(actionEvent -> {
+//                        });
+//                        delbutton.setOnAction(actionEvent -> {
 //                            Member m = getTableView().getItems().get(getIndex());
 //                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 //                            alert.setTitle("Konfirmasi Hapus Data");
@@ -527,9 +519,9 @@ public class AdminControllerMembership implements Initializable {
 //                                }
 //
 //                            }
-                        });
-
-                        detail.setOnAction(actionEvent -> {
+//                        });
+//
+//                        detail.setOnAction(actionEvent -> {
 //                            Member m = getTableView().getItems().get(getIndex());
 //                            id_membership = m.getId_membership();
 //                            nama = m.getNama_membership();
@@ -547,11 +539,11 @@ public class AdminControllerMembership implements Initializable {
 //                            } catch (IOException e) {
 //                                throw new RuntimeException(e);
 //                            }
-                        });
-
-                        setGraphic(buton);
-                        setText(null);
-                    }
+//                        });
+//
+//                        setGraphic(buton);
+//                        setText(null);
+//                    }
                 }
             };
             return cell;
@@ -572,6 +564,7 @@ public class AdminControllerMembership implements Initializable {
         }
     }
 
+    @FXML
     public void onDetailClick() {
         Alert alert;
         alert = new Alert(Alert.AlertType.INFORMATION);

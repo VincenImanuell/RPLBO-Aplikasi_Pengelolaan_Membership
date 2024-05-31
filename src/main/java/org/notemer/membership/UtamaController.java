@@ -334,7 +334,6 @@ public class UtamaController implements Initializable {
         sort.setText("Sort");
         MenuItem menuItem = (MenuItem) event.getSource();
         String sortOption = menuItem.getText();
-        sort.setText(sortOption);
         ObservableList<Member> sortedData = getDataFromTable(sortOption);
         tabelMember.setItems(sortedData);
         tabelMember.refresh(); // Refresh TableView
