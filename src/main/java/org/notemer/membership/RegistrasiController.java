@@ -49,6 +49,8 @@ public class RegistrasiController {
             alert.setContentText("Password dan konfirmasi password anda tidak sama!");
             alert.showAndWait();
         } else {
+
+
             String name, first, last, mail, pass;
             name = userName.getText();
             first = namaDepan.getText();
@@ -65,20 +67,33 @@ public class RegistrasiController {
             String connectionString = "jdbc:sqlite:membership.sqlite";
             conn = DriverManager.getConnection(connectionString);
 
-            String sql = "INSERT INTO user (username, password, nama_depan, nama_belakang, email) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, name);
-            stmt.setString(2, pass);
-            stmt.setString(3, first);
-            stmt.setString(4, last);
-            stmt.setString(5, mail);
+            String query = "SELECT * FROM user WHERE username = ?";
+            PreparedStatement stm = conn.prepareStatement(query);
+            stm.setString(1, name);
+            ResultSet rowsAffected = stm.executeQuery();
 
-            int affectedRows = stmt.executeUpdate();
+            Alert alert;
+            if (!rowsAffected.isBeforeFirst()) {
+                String sql = "INSERT INTO user (username, password, nama_depan, nama_belakang, email) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, name);
+                stmt.setString(2, pass);
+                stmt.setString(3, first);
+                stmt.setString(4, last);
+                stmt.setString(5, mail);
 
-            if (affectedRows > 0) {
-                Alert alert=new Alert(Alert.AlertType.INFORMATION, "User berhasil didaftarkan.");
+                int affectedRows = stmt.executeUpdate();
+
+                if (affectedRows > 0) {
+                    alert = new Alert(Alert.AlertType.INFORMATION, "User berhasil didaftarkan.");
+                    alert.showAndWait();
+                    GuiApp.setRoot("login", "Login-NoteMer", false);
+                }
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Username sudah ada");
+                alert.setContentText("Maaf, silahkan gunakan username yang belum ada!");
                 alert.showAndWait();
-                GuiApp.setRoot("login", "Login-NoteMer", false);
             }
 
             conn.close();
