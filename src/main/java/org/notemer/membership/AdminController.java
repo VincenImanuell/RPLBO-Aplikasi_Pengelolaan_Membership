@@ -1,12 +1,14 @@
 package org.notemer.membership;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
@@ -41,5 +43,36 @@ public class AdminController implements Initializable {
                 "3. 71220928 / Natanael\n" +
                 "4. 71220956 / Vicky Yohanes Putra Setiawan");
         alert.showAndWait();
+    }
+
+    @FXML
+    void onLogOutClick(ActionEvent event) throws IOException {
+        Alert alert;
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Konfirmasi LogOut");
+        alert.setHeaderText("Apakah anda yakin ingin melakukan LogOut?");
+        alert.setContentText("Anda akan diminta untuk login kembali jika anda melakukan LogOut.");
+        Optional<ButtonType> option = alert.showAndWait();
+        if (option.get() == null) {
+            for ( ButtonType bt : alert.getDialogPane().getButtonTypes() )
+            {
+                if ( bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE )
+                {
+                    Button cancelButton = ( Button ) alert.getDialogPane().lookupButton( bt );
+                    cancelButton.fire();
+                    break;
+                }
+            }
+        } else if (option.get() == ButtonType.OK) {
+            GuiApp.setRoot("login", "Login NoteMer: Note Member", false);
+        } else if (option.get() == ButtonType.CANCEL) {
+            for (ButtonType bt : alert.getDialogPane().getButtonTypes()) {
+                if (bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                    Button cancelButton = (Button) alert.getDialogPane().lookupButton(bt);
+                    cancelButton.fire();
+                    break;
+                }
+            }
+        }
     }
 }

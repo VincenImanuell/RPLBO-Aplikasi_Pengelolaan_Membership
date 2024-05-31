@@ -37,7 +37,7 @@
                         </ImageView>
                      </graphic>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" text="Logout">
+                  <MenuItem mnemonicParsing="false" onAction="#onLogOutClick" text="Logout">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,21 +94,16 @@
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Text>
-            <Button layoutX="239.0" layoutY="144.0" mnemonicParsing="false" onMouseClicked="#menuuser" prefHeight="43.0" prefWidth="206.0" style="-fx-background-color: #365563;" text="USER" textFill="WHITE">
+            <Button layoutX="238.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#menuuser" prefHeight="43.0" prefWidth="206.0" style="-fx-background-color: #365563;" text="USER" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font></Button>
-            <Button layoutX="239.0" layoutY="206.0" mnemonicParsing="false" onMouseClicked="#menumembership" prefHeight="43.0" prefWidth="203.0" style="-fx-background-color: #365563;" text="MEMBERSHIP" textFill="WHITE">
+            <Button layoutX="240.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#menumembership" prefHeight="43.0" prefWidth="203.0" style="-fx-background-color: #365563;" text="MEMBERSHIP" textFill="WHITE">
                <font>
                   <Font name="Arial Bold" size="24.0" />
                </font>
             </Button>
-            <Button layoutX="242.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#menuriwayat" prefHeight="43.0" prefWidth="201.0" style="-fx-background-color: #365563;" text="RIWAYAT" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="24.0" />
-               </font>
-            </Button>
-            <Text fill="#365563" layoutX="257.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Silahkan Pilih Menu" textAlignment="CENTER">
+            <Text fill="#365563" layoutX="257.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Silahkan Pilih Menu" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>

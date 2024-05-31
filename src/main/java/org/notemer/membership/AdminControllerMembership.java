@@ -203,8 +203,34 @@ public class AdminControllerMembership implements Initializable {
     }
 
     @FXML
-    void onLogOutClick(ActionEvent event) {
-
+    void onLogOutClick(ActionEvent event) throws IOException {
+        Alert alert;
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Konfirmasi LogOut");
+        alert.setHeaderText("Apakah anda yakin ingin melakukan LogOut?");
+        alert.setContentText("Anda akan diminta untuk login kembali jika anda melakukan LogOut.");
+        Optional<ButtonType> option = alert.showAndWait();
+        if (option.get() == null) {
+            for ( ButtonType bt : alert.getDialogPane().getButtonTypes() )
+            {
+                if ( bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE )
+                {
+                    Button cancelButton = ( Button ) alert.getDialogPane().lookupButton( bt );
+                    cancelButton.fire();
+                    break;
+                }
+            }
+        } else if (option.get() == ButtonType.OK) {
+            GuiApp.setRoot("login", "Login NoteMer: Note Member", false);
+        } else if (option.get() == ButtonType.CANCEL) {
+            for (ButtonType bt : alert.getDialogPane().getButtonTypes()) {
+                if (bt.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                    Button cancelButton = (Button) alert.getDialogPane().lookupButton(bt);
+                    cancelButton.fire();
+                    break;
+                }
+            }
+        }
     }
 
     @FXML
@@ -354,7 +380,6 @@ public class AdminControllerMembership implements Initializable {
             filteredData = new FilteredList<>(memberList, p -> true);
             SortedList<Member> sortedData = new SortedList<>(filteredData);
             tabelMember.setItems(sortedData);
-            searchBox.setOnKeyPressed(this::handleSearch);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         } catch (SQLException e) {
@@ -559,5 +584,9 @@ public class AdminControllerMembership implements Initializable {
                 "3. 71220928 / Natanael\n" +
                 "4. 71220956 / Vicky Yohanes Putra Setiawan");
         alert.showAndWait();
+    }
+
+    public void onKembali() throws IOException {
+        GuiApp.setRoot("Admin", "HomePage-NoteMer", false);
     }
 }
