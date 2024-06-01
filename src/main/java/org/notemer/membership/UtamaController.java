@@ -358,7 +358,7 @@ public class UtamaController implements Initializable {
         tabelMember.setItems(member);
     }
 
-     public void onJauh() throws SQLException {
+    public void onJauh() throws SQLException {
         sort.setText("Berakhir Terjauh");
         String query = "SELECT * FROM membership WHERE username = ? ORDER BY tanggal_selesai DESC";
         PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -375,9 +375,9 @@ public class UtamaController implements Initializable {
         }
 
         tabelMember.setItems(member);
-     }
+    }
 
-     public void onDekat() throws SQLException {
+    public void onDekat() throws SQLException {
         sort.setText("Berakhir Terdekat");
         String query = "SELECT * FROM membership WHERE username = ? ORDER BY tanggal_selesai ASC";
         PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -394,9 +394,9 @@ public class UtamaController implements Initializable {
         }
 
         tabelMember.setItems(member);
-     }
+    }
 
-     public void onAktif() throws SQLException {
+    public void onAktif() throws SQLException {
         sort.setText("Aktif");
         String query = "SELECT * FROM membership WHERE username = ? AND status = 'Aktif'";
         PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -413,9 +413,9 @@ public class UtamaController implements Initializable {
         }
 
         tabelMember.setItems(member);
-     }
+    }
 
-     public void onBerakhir() throws SQLException {
+    public void onBerakhir() throws SQLException {
         sort.setText("Berakhir");
         String query = "SELECT * FROM membership WHERE username = ? AND status = 'Tidak Aktif' ";
         PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -432,7 +432,7 @@ public class UtamaController implements Initializable {
         }
 
         tabelMember.setItems(member);
-     }
+    }
 
     public void grafik(MouseEvent mouseEvent) throws IOException {
         Stage stage = new Stage();
@@ -442,5 +442,134 @@ public class UtamaController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Halaman Grafik Membership User");
         stage.show();
+    }
+
+    public void onRefresh() {
+        sort.setText("Sort");
+        homeUserName.setText(LoginController.tampunganUsername);
+        tabelMember.setEditable(false);
+        kolomNama.setCellValueFactory(new PropertyValueFactory<Member, String>("nama_membership"));
+        kolomJenis.setCellValueFactory(new PropertyValueFactory<Member, String>("jenis_keanggotaan"));
+        kolomMulai.setCellValueFactory(new PropertyValueFactory<Member, Date>("tanggal_mulai"));
+        kolomBerakhir.setCellValueFactory(new PropertyValueFactory<Member, Date>("tanggal_berakhir"));
+        kolomHarga.setCellValueFactory(new PropertyValueFactory<Member, Integer>("harga"));
+        kolomStatus.setCellValueFactory(new PropertyValueFactory<Member, String>("status"));
+
+        Callback<TableColumn<Member, String>,TableCell<Member, String>> cellFactory = (param) -> {
+            final  TableCell<Member, String> cell = new TableCell<Member, String>(){
+
+                @Override
+                public void updateItem(String item, boolean empty){
+                    super.updateItem(item, empty);
+
+                    if (empty){
+                        setGraphic(null);
+                        setText(null);
+                    }else{
+                        final Button editbutton = new Button("Edit");
+                        final Button delbutton = new Button("Delete");
+                        final Button detail = new Button("Detail");
+
+                        editbutton.setStyle("-fx-background-color:#8686e1");
+                        delbutton.setStyle("-fx-background-color:#e58585");
+                        detail.setStyle("-fx-background-color: aqua");
+                        HBox buton = new HBox(detail,editbutton, delbutton);
+                        buton.setPadding(new Insets(5,0,5,0));
+                        buton.setAlignment(Pos.CENTER);
+//
+                        buton.setSpacing(10);
+
+                        editbutton.setOnAction(actionEvent -> {
+                            Member m = getTableView().getItems().get(getIndex());
+                            id_membership = m.getId_membership();
+                            nama = m.getNama_membership();
+                            jenis = m.getJenis_keanggotaan();
+                            tanggal_mulai = m.getTanggal_mulai();
+                            tanggal_berakhir = m.getTanggal_berakhir();
+                            pembaharuan = m.getSiklus_pembaruan();
+                            kontak = m.getKontak();
+                            status = m.getStatus();
+                            harga = Integer.parseInt(m.getHarga());
+                            manfaat = m.getManfaat();
+                            deskripsi = m.getDeskripsi();
+                            try {
+                                GuiApp.setRoot("edit","Halaman edit",false);
+
+                                Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Mengedit Membership: " + nama);
+                                simpanRiwayatAktivitas(riwayat);
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+                        delbutton.setOnAction(actionEvent -> {
+                            Member m = getTableView().getItems().get(getIndex());
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Konfirmasi Hapus Data");
+                            alert.setHeaderText("Apakah Yakin Anda Ingin Menghapus Data ?");
+                            alert.setContentText("Data Anda Akan Dihapus Permanen");
+                            Optional<ButtonType> del = alert.showAndWait();
+                            if (del.get() == ButtonType.OK){
+                                try {
+                                    koneksiDB();
+                                    String query = "DELETE FROM membership WHERE id_membership = ?";
+                                    PreparedStatement preparedStatement = conn.prepareStatement(query);
+                                    preparedStatement.setInt(1,m.getId_membership());
+                                    preparedStatement.executeUpdate();
+                                    tabelMember.setItems(getDataFromTable(sort.getText()));
+
+                                    Riwayat riwayat = new Riwayat(LoginController.tampunganUsername, LocalDateTime.now(), "Menghapus Membership: " + m.getNama_membership());
+                                    simpanRiwayatAktivitas(riwayat);
+
+                                } catch (SQLException e) {
+                                    throw new RuntimeException(e);
+                                } catch (ClassNotFoundException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                            }
+                        });
+
+                        detail.setOnAction(actionEvent -> {
+                            Member m = getTableView().getItems().get(getIndex());
+                            id_membership = m.getId_membership();
+                            nama = m.getNama_membership();
+                            jenis = m.getJenis_keanggotaan();
+                            tanggal_mulai = m.getTanggal_mulai();
+                            tanggal_berakhir = m.getTanggal_berakhir();
+                            pembaharuan = m.getSiklus_pembaruan();
+                            kontak = m.getKontak();
+                            status = m.getStatus();
+                            harga = Integer.parseInt(m.getHarga());
+                            manfaat = m.getManfaat();
+                            deskripsi = m.getDeskripsi();
+                            try {
+                                GuiApp.setRoot("detail-membership","Halaman Detail",false);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        });
+
+                        setGraphic(buton);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+        };
+        aksi.setCellFactory(cellFactory);
+
+        try {
+            koneksiDB();
+            memberList = getDataFromTable(sort.getText());
+            filteredData = new FilteredList<>(memberList, p -> true);
+            SortedList<Member> sortedData = new SortedList<>(filteredData);
+            tabelMember.setItems(sortedData);
+            searchBox.setOnKeyPressed(this::handleSearch);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
